@@ -1,0 +1,78 @@
+<?php
+/**
+ * CedCommerce
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End User License Agreement (EULA)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://cedcommerce.com/license-agreement.txt
+ *
+ * @category  Ced
+ * @package   Ced_EbayMultiAccount
+ * @author    CedCommerce Core Team <connect@cedcommerce.com>
+ * @copyright Copyright CEDCOMMERCE (http://cedcommerce.com/)
+ * @license   http://cedcommerce.com/license-agreement.txt
+ */
+
+$profile = $block->getProfile();
+$seachCat = $catId = '';
+if ($profile->getProfileCatSearch()){
+    $catId = $profile->getProfileCategory();
+    $seachCat = $profile->getProfileCatSearch();
+}
+?>
+<script>
+    require([
+        "jquery",
+    ], function($) {
+        var id = $('#searchcategory').val();
+       
+
+        function getCategory(catid) {
+            
+
+
+            new Ajax.Request("<?php echo $this->getUrl('*/*/getCategory');?>" + 'searchText/' + catid, {
+                method: "post",
+                onSuccess: function (transport) {
+                    var select = $('level_0');
+                    // select.
+
+                    for ( i=0; i<transport.responseJSON['category'].length; i++) {
+                        select.insert(new Element('option', {"value": transport.responseJSON['category'][i]['value']}).update(transport.responseJSON['category'][i]['label']));
+                        // select.insert(new Element('option', {"label": transport.responseJSON['category'][i]['label']}).update(transport.responseJSON['category'][i]['label']));
+                    }
+
+                    //var content = document.getElementById("p_id_map");
+                    var js_level_0 = JSON.parse(transport.responseText);
+
+                    for (var key in js_level_0) {
+                        if (key == catId) {
+                            content.insert(new Element('option', {'value': key, 'selected': 'selected'}).update(js_level_0[key]));
+                        }
+                        else {
+
+                            content.insert(new Element('option', {'value': key}).update(js_level_0[key]));
+                        }
+                    }
+
+                    if ($('pro')) {
+                        $('pro').insert(content);
+                    }
+
+
+                }
+            });
+
+
+        }
+
+    });
+</script>
+<style type="text/css">
+    #groupVendorPpcode_massaction-form {
+        display:none;
+    }
+</style>

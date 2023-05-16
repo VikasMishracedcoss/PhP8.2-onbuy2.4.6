@@ -1,0 +1,12 @@
+
+<form action="<?php echo $block->getFormAction(); ?>" method="POST" enctype="multipart/form-data">
+<input name="form_key" type="hidden" value="<?php echo $block->getFormKey(); ?>">
+
+<label for="Name">Import CSV </label>
+<input type="hidden"  name="profilecode" required value="<?php echo $this->getRequest()->getParam('pcode'); ?>">
+<input type="hidden"  name="account_id" required value="<?php echo $this->getRequest()->getParam('account_id'); ?>">
+
+<input type="file"  id="file_upload" name="file_upload" required accept="csv">
+<input type='submit' name='submit' value='Upload Products'>
+
+</form>

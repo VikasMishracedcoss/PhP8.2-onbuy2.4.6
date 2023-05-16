@@ -1,0 +1,12 @@
+<?php 
+$data=$block->myFunction();
+
+?>
+<div>
+<?php  if(isset($data['order'])):?>
+    
+   <p><b>Onbuy order Id:</b><?php echo $data['order'];?></p>
+  
+   <p><b>PayPal Refrence Id:</b><?php echo $data['paypal'];?></p>
+<?php endif;?>
+</div>

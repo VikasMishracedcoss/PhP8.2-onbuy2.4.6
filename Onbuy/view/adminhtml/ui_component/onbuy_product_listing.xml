@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * CedCommerce
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End User License Agreement(EULA)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://cedcommerce.com/license-agreement.txt
+ *
+ * @category  Ced
+ * @package   Ced_Onbuy
+ * @author    CedCommerce Core Team <connect@cedcommerce.com>
+ * @copyright Copyright CEDCOMMERCE(http://cedcommerce.com/)
+ * @license   http://cedcommerce.com/license-agreement.txt
+ */
+-->
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">onbuy_product_listing.product_listing_data_source</item>
+            <item name="deps" xsi:type="string">onbuy_product_listing.product_listing_data_source</item>
+        </item>
+        <item name="spinner" xsi:type="string">product_columns</item>
+    </argument>
+
+     <dataSource name="product_listing_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Ced\Onbuy\Ui\DataProvider\Product\OnbuyProduct</argument>
+            <argument name="name" xsi:type="string">product_listing_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">entity_id</argument>
+            <argument name="requestFieldName" xsi:type="string">id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/provider</item>
+                    <item name="update_url" xsi:type="url" path="mui/index/render"/>
+                </item>
+            </argument>
+        </argument>
+    </dataSource>
+
+
+     <!-- <dataSource name="product_listing_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider</argument>
+            <argument name="name" xsi:type="string">product_listing_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">entity_id</argument>
+            <argument name="requestFieldName" xsi:type="string">id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/provider</item>
+                    <item name="update_url" xsi:type="url" path="mui/index/render"/>
+                    <item name="storageConfig" xsi:type="array">
+                        <item name="indexField" xsi:type="string">id</item>
+                    </item>
+                </item>
+            </argument>
+        </argument>
+    </dataSource> -->
+
+    <listingToolbar name="listing_top">
+        <!--<argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="sticky" xsi:type="boolean">true</item>
+            </item>
+        </argument>-->
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="template" xsi:type="string">ui/grid/toolbar</item>
+                <item name="stickyTmpl" xsi:type="string">ui/grid/sticky/toolbar</item>
+            </item>
+        </argument>
+        <bookmark name="bookmarks"/>
+        <columnsControls name="columns_controls"/>
+        <filters name="listing_filters" />
+        <massaction name="listing_massaction">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/tree-massactions</item>
+                     <item name="selectProvider" xsi:type="string">onbuy_product_listing.onbuy_product_listing.product_columns.ids</item>
+                </item>
+            </argument>
+            <action name="import">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="confirm" xsi:type="array">
+                            <item name="title" xsi:type="string" translate="true">Upload Item(s)</item>
+                            <item name="message" xsi:type="string" translate="true">Do you want to upload selected item(s) on OnBuy?</item>
+                        </item>
+                        <item name="type" xsi:type="string">import</item>
+                        <item name="label" xsi:type="string" translate="true">Upload Item(s)</item>
+                        <item name="url" xsi:type="url" path="onbuy/product/massupload"/>
+                    </item>
+                </argument>
+            </action>
+            <action name="listings">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="confirm" xsi:type="array">
+                            <item name="title" xsi:type="string" translate="true">Create Listing(s)</item>
+                            <item name="message" xsi:type="string" translate="true">Do you want to create listing for selected item(s) on OnBuy?</item>
+                        </item>
+                        <item name="type" xsi:type="string">listings</item>
+                        <item name="label" xsi:type="string" translate="true">Create Listing(s)</item>
+                        <item name="url" xsi:type="url" path="onbuy/product/masscreate"/>
+                    </item>
+                </argument>
+            </action>
+            <action name="syncProduct">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="confirm" xsi:type="array">
+                            <item name="title" xsi:type="string" translate="true">Sync Inventory and Price</item>
+                            <item name="message" xsi:type="string" translate="true">Do you want to sync item(s) on OnBuy?</item>
+                        </item>
+                        <item name="type" xsi:type="string">syncInventory</item>
+                        <item name="label" xsi:type="string" translate="true">Sync Inventory and Price</item>
+                        <item name="url" xsi:type="url" path="onbuy/product/masssync"/>
+                    </item>
+                </argument>
+            </action>
+            <action name="syncItem">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="confirm" xsi:type="array">
+                            <item name="title" xsi:type="string" translate="true">Update Item</item>
+                            <item name="message" xsi:type="string" translate="true">Do you want to sync item(s) on OnBuy?</item>
+                        </item>
+                        <item name="type" xsi:type="string">syncImage</item>
+                        <item name="label" xsi:type="string" translate="true">Update Item</item>
+                        <item name="url" xsi:type="url" path="onbuy/product/massupdate"/>
+                    </item>
+                </argument>
+            </action>
+
+           <!-- <action name="syncStatus">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="confirm" xsi:type="array">
+                            <item name="title" xsi:type="string" translate="true">Sync Product Status</item>
+                            <item name="message" xsi:type="string" translate="true">Do you want to sync Product(s) Status on Onbuy?</item>
+                        </item>
+                        <item name="type" xsi:type="string">syncStatus</item>
+                        <item name="label" xsi:type="string" translate="true">Sync Item(s) Status</item>
+                        <item name="url" xsi:type="url" path="onbuy/product/masssyncstatus"/>
+                    </item>
+                </argument>
+            </action>-->
+
+            <action name="endItem">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="confirm" xsi:type="array">
+                            <item name="title" xsi:type="string" translate="true">Withdraw Listing(s) on OnBuy</item>
+                            <item name="message" xsi:type="string" translate="true">Do you want to withdraw listing(s) on
+                                OnBuy?</item>
+                        </item>
+                        <item name="type" xsi:type="string">endItem</item>
+                        <item name="label" xsi:type="string" translate="true">Withdraw Listing(s)</item>
+                        <item name="url" xsi:type="url" path="onbuy/product/massdelete"/>
+                    </item>
+                </argument>
+            </action>
+            <action name="checkopc">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="confirm" xsi:type="array">
+                            <item name="title" xsi:type="string" translate="true">Check OPC on OnBuy</item>
+                            <item name="message" xsi:type="string" translate="true">Do you want to Check OPC on OnBuy?</item>
+                        </item>
+                        <item name="type" xsi:type="string">checkopc</item>
+                        <item name="label" xsi:type="string" translate="true">Check OPC</item>
+                        <item name="url" xsi:type="url" path="onbuy/product/masscheckopc"/>
+                    </item>
+                </argument>
+            </action>
+            <!-- <action name="removeopc">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="confirm" xsi:type="array">
+                            <item name="title" xsi:type="string" translate="true">Remove OPC on OnBuy</item>
+                            <item name="message" xsi:type="string" translate="true">Do you want to Remove OPC on OnBuy?</item>
+                        </item>
+                        <item name="type" xsi:type="string">removeopc</item>
+                        <item name="label" xsi:type="string" translate="true">Remove OPC</item>
+                        <item name="url" xsi:type="url" path="onbuy/product/massremoveopc"/>
+                    </item>
+                </argument>
+            </action> -->
+        </massaction>
+        <paging name="listing_paging"/>
+           
+<exportButton class="Magento\Ui\Component\ExportButton">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="options" xsi:type="array">
+                    <item name="csv" xsi:type="array">
+                        <item name="value" xsi:type="string">csv</item>
+                        <item name="label" xsi:type="string" translate="true">CSV</item>
+                        <item name="url" xsi:type="string">*/export/Csvexportnew</item>
+                    </item>
+                    <item name="xml" xsi:type="array">
+                        <item name="value" xsi:type="string">xml</item>
+                        <item name="label" xsi:type="string" translate="true">Excel XML</item>
+                        <item name="url" xsi:type="string">*/export/excelexport</item>                         
+                    </item> 
+                </item>
+            </item>
+        </argument>
+    </exportButton>
+
+</listingToolbar>
+
+
+
+    <columns name="product_columns" class="Magento\Catalog\Ui\Component\Listing\Columns">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="childDefaults" xsi:type="array">
+                    <item name="fieldAction" xsi:type="array">
+                        <item name="provider" xsi:type="string">onbuy_product_listing.onbuy_product_listing.product_columns.actions</item>
+                        <item name="target" xsi:type="string">applyAction</item>
+                        <item name="params" xsi:type="array">
+                            <item name="0" xsi:type="string">edit</item>
+                            <item name="1" xsi:type="string">${ $.$data.rowIndex }</item>
+                        </item>
+                    </item>
+                </item>
+            </item>
+        </argument>
+       <selectionsColumn name="ids">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="resizeEnabled" xsi:type="boolean">false</item>
+                <item name="resizeDefaultWidth" xsi:type="string">5</item>
+                <item name="indexField" xsi:type="string">entity_id</item>
+            </item>
+        </argument>
+    </selectionsColumn>
+      <!--  <selectionsColumn name="ids">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="indexField" xsi:type="string">entity_id</item>
+                    <item name="sortOrder" xsi:type="number">0</item>
+                </item>
+            </argument>
+        </selectionsColumn> -->
+        <column name="entity_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">textRange</item>
+                    <item name="sorting" xsi:type="string">asc</item>
+                    <item name="label" xsi:type="string" translate="true">ID</item>
+                    <item name="sortOrder" xsi:type="number">10</item>
+                </item>
+            </argument>
+        </column>
+        <column name="thumbnail" class="Magento\Catalog\Ui\Component\Listing\Columns\Thumbnail">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/thumbnail</item>
+                    <item name="add_field" xsi:type="boolean">true</item>
+                    <item name="sortable" xsi:type="boolean">false</item>
+                    <item name="altField" xsi:type="string">name</item>
+                    <item name="has_preview" xsi:type="string">1</item>
+                    <item name="label" xsi:type="string" translate="true">Thumbnail</item>
+                    <item name="sortOrder" xsi:type="number">20</item>
+                </item>
+            </argument>
+        </column> 
+        <column name="name">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="add_field" xsi:type="boolean">true</item>
+                    <item name="label" xsi:type="string" translate="true">Name</item>
+                    <item name="sortOrder" xsi:type="number">30</item>
+                </item>
+            </argument>
+        </column>
+       <column name="type_id">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Magento\Catalog\Model\Product\Type</item>
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">select</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/select</item>
+                    <item name="dataType" xsi:type="string">select</item>
+                    <item name="label" xsi:type="string" translate="true">Type</item>
+                    <item name="sortOrder" xsi:type="number">40</item>
+                </item>
+            </argument>
+        </column> 
+        <column name="sku">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">SKU</item>
+                    <item name="sortOrder" xsi:type="number">50</item>
+                </item>
+            </argument>
+        </column>
+
+        <column name="price" class="Magento\Catalog\Ui\Component\Listing\Columns\Price">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">textRange</item>
+                    <item name="add_field" xsi:type="boolean">true</item>
+                    <item name="label" xsi:type="string" translate="true">Price</item>
+                    <item name="sortOrder" xsi:type="number">60</item>
+                </item>
+            </argument>
+        </column> 
+        
+        <column name="qty">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">textRange</item>
+                    <item name="add_field" xsi:type="boolean">true</item>
+                    <item name="label" xsi:type="string" translate="true">Quantity</item>
+                    <item name="sortOrder" xsi:type="number">80</item>
+                </item>
+            </argument>
+        </column>
+         <column name="onbuy_profile_id">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Ced\Onbuy\Model\Source\Profile</item>
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">select</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/select</item>
+                    <item name="dataType" xsi:type="string">select</item>
+                    <item name="label" xsi:type="string" translate="true">OnBuy Profile</item>
+                    <item name="sortOrder" xsi:type="number">85</item>
+                </item>
+            </argument>
+        </column>
+        <column name="onbuy_product_status">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Ced\Onbuy\Model\Source\Productstatus</item>
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">select</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/select</item>
+                    <item name="dataType" xsi:type="string">select</item>
+                    <item name="label" xsi:type="string" translate="true">OnBuy Product Status</item>
+                    <item name="sortOrder" xsi:type="number">90</item>
+                </item>
+            </argument>
+        </column>
+         <column name="opc">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">OnBuy Product Code</item>
+                    <item name="sortOrder" xsi:type="number">100</item>
+                </item>
+            </argument>
+        </column>
+       <column name="onbuy_listing_error" class="Ced\Onbuy\Ui\Component\Listing\Columns\Product\Validation">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="component" xsi:type="string">Ced_Integrator/js/grid/columns/product/validation</item>
+                    <item name="dataType" xsi:type="string">select</item>
+                    <item name="label" xsi:type="string" translate="true">Product Upload Status</item>
+                    <item name="sortOrder" xsi:type="number">95</item>
+                </item>
+            </argument>
+        </column>
+        <column name="onbuy_listing_error" class="Ced\Onbuy\Ui\Component\Listing\Columns\Product\Validation">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Ced_Integrator/js/grid/columns/actions</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Specifics</item>
+                    <item name="sortOrder" xsi:type="number">110</item>
+                </item>
+            </argument>
+        </column>
+        <actionsColumn name="actions" class="Ced\Onbuy\Ui\Component\Listing\Columns\Product\Actions">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Ced_Integrator/js/grid/columns/actions</item>
+                    <item name="indexField" xsi:type="string">entity_id</item>
+                    <item name="sortOrder" xsi:type="number">1000</item>
+                </item>
+            </argument>
+        </actionsColumn>
+        <column name="visibility">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Magento\Catalog\Model\Product\Visibility</item>
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">select</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/select</item>
+                    <item name="add_field" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">select</item>
+                    <item name="controlVisibility" xsi:type="boolean">false</item>
+                    <item name="label" xsi:type="string" translate="true">Visibility</item>
+                    <item name="sortOrder" xsi:type="number">110</item>
+
+                </item>
+            </argument>
+        </column> 
+        <column name="status">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Magento\Catalog\Model\Product\Attribute\Source\Status</item>
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">select</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/select</item>
+                    <item name="add_field" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">select</item>
+                    <item name="controlVisibility" xsi:type="boolean">false</item>
+                    <item name="label" xsi:type="string" translate="true">Status</item>
+                    <item name="sortOrder" xsi:type="number">120</item>
+                </item>
+            </argument>
+        </column>
+      
+
+
+        
+    <column name="last_update" class="Magento\Ui\Component\Listing\Columns\Date">
+        <settings>
+        <addField>true</addField>
+        <filter>dateRange</filter>
+        <dataType>date</dataType>
+        <label translate="true">Last Change</label>
+        </settings>
+    </column>
+    <column name="last_opration">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Last Opration </item>
+                    <item name="sortOrder" xsi:type="number">100</item>
+                </item>
+            </argument>
+    </column>
+    </columns>
+</listing>

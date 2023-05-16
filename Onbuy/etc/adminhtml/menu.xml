@@ -1,0 +1,156 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * CedCommerce
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End User License Agreement(EULA)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://cedcommerce.com/license-agreement.txt
+ *
+ * @category  Ced
+ * @package   Ced_Onbuy
+ * @author    CedCommerce Core Team <connect@cedcommerce.com>
+ * @copyright Copyright CEDCOMMERCE(http://cedcommerce.com/)
+ * @license   http://cedcommerce.com/license-agreement.txt
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Ced_Onbuy::Onbuy"
+             title="OnBuy"
+             translate="title"
+             module="Ced_Onbuy"
+             sortOrder="14"
+             resource="Ced_Onbuy::Onbuy"
+        />
+        <add id="Ced_Onbuy::product"
+             title="Products"
+             translate="title"
+             module="Ced_Onbuy"
+             sortOrder="1"
+             parent="Ced_Onbuy::Onbuy"
+             resource="Ced_Onbuy::onbuy_products"
+        />
+        <add id="Ced_Onbuy::onbuy_product"
+             title="Product Manager"
+             translate="title"
+             module="Ced_Onbuy"
+             sortOrder="5"
+             parent="Ced_Onbuy::product"
+             action="onbuy/product/index"
+             resource="Ced_Onbuy::products"
+        />
+        <add id="Ced_Onbuy::onbuy_profile"
+             title="Profile Manager"
+             translate="title"
+             module="Ced_Onbuy"
+             sortOrder="1"
+             parent="Ced_Onbuy::product"
+             action="onbuy/profile/index"
+             resource="Ced_Onbuy::profiles"
+        />
+
+
+        <add id="Ced_Onbuy::account"
+             title="OnBuy Configuration"
+             translate="title"
+             module="Ced_Onbuy"
+             sortOrder="3"
+             parent="Ced_Onbuy::Onbuy"
+             resource="Ced_Onbuy::onbuy_account"
+        />
+
+        <add id="Ced_Onbuy::onbuy_account_listing"
+             title="Manage Accounts"
+             translate="title"
+             module="Ced_Onbuy"
+             sortOrder="1"
+             parent="Ced_Onbuy::account"
+             action="onbuy/account/index"
+             resource="Ced_Onbuy::accounts"
+        />
+        <add id="Ced_Onbuy::onbuy_configuration"
+             title="Configuration"
+             module="Ced_Onbuy"
+             sortOrder="10"
+             parent="Ced_Onbuy::account"
+             action="adminhtml/system_config/edit/section/onbuy_config"
+             resource="Ced_Onbuy::configuration"
+        />
+
+        <add id="Ced_Onbuy::orders"
+             title="Orders"
+             translate="title"
+             module="Ced_Onbuy"
+             sortOrder="2"
+             parent="Ced_Onbuy::Onbuy"
+             resource="Ced_Onbuy::onbuy_orders"
+        />
+
+        <add id="Ced_Onbuy::onbuy_order_listing"
+             title="Manage Orders"
+             translate="title"
+             module="Ced_Onbuy"
+             sortOrder="1"
+             parent="Ced_Onbuy::orders"
+             action="onbuy/order/index"
+             resource="Ced_Onbuy::view_onbuy_orders"
+        />
+
+        <add id="Ced_Onbuy::extra"
+             title="Extras"
+             module="Ced_Onbuy"
+             sortOrder="25"
+             parent="Ced_Onbuy::Onbuy"
+             resource="Ced_Onbuy::extra"
+        />
+        <add id="Ced_Onbuy::knowledge_base"
+             title="Help And Support"
+             module="Ced_Onbuy"
+             sortOrder="2"
+             parent="Ced_Onbuy::extra"
+             action="onbuy/request/help"
+             resource="Ced_Onbuy::knowledge_base"
+        />
+
+        <add id="Ced_Onbuy::developer"
+             title="Developer"
+             module="Ced_Onbuy"
+             sortOrder="20"
+             parent="Ced_Onbuy::Onbuy"
+             resource="Ced_Onbuy::developer"
+        />
+
+        <add id="Ced_Onbuy::onbuy_cron"
+             title="Cron Logs"
+             module="Ced_Onbuy"
+             sortOrder="5"
+             parent="Ced_Onbuy::developer"
+             action="onbuy/cron/index"
+             resource="Ced_Onbuy::crons"
+        />
+        <add id="Ced_Onbuy::onbuy_feeds"
+             title="Product Feeds"
+             module="Ced_Onbuy"
+             sortOrder="5"
+             parent="Ced_Onbuy::developer"
+             action="onbuy/feeds/index"
+             resource="Ced_Onbuy::feeds"
+        />
+
+        <add id="Ced_Onbuy::logs"
+             title="Activity Logs"
+             translate="title"
+             module="Ced_Onbuy"
+             sortOrder="40"
+             parent="Ced_Onbuy::developer"
+             action="integrator/log/index"
+             resource="Ced_Integrator::activity_logs"
+        />
+    </menu>
+</config>

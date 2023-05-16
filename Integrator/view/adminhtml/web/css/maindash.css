@@ -1,0 +1,133 @@
+#module {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+   
+  }
+  #module th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    color: black;
+    border-bottom:solid 1px gray;
+    
+  }
+  #module td{
+    padding-top: 8px;
+    padding-bottom:8px;
+    font-size: 15px;
+    border-bottom:solid 1px gray;
+  }
+.badgeenable{
+    color: white;
+    padding: 5px 20px 5px 20px;
+    font-family: Arial;
+    background-color: #4CAF50;
+    border-radius: 10px;
+}
+.badgedisable{
+    color: white;
+    padding: 5px 20px 5px 20px;
+    font-family: Arial;
+    background-color:red;
+    border-radius: 10px;
+}
+.blocks {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  width: 80%;
+  border-radius: 5px;
+  text-align: center;
+  padding: 20px;
+  padding-bottom: 40px;
+}
+
+.cards {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  width: 100%;
+  border-radius: 5px;
+  text-align: center;
+  padding: 20px;
+  padding-bottom: 40px;
+  height: 600px;
+}
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  width: 80%;
+  border-radius: 5px;
+  text-align: center;
+  padding: 10px;
+
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(22, 22, 22, 0.2);
+}
+
+img {
+  border-radius: 5px 5px 0 0;
+}
+
+.containers {
+  margin-top: 20px;
+}
+
+#dashboard{
+  margin-top: 50px;
+  padding-bottom: 100px;
+}
+.alert {
+  padding: 2px;
+  margin-top: 5px;
+  text-align: center;
+  background-color: #D9EDF7;
+  color: #31709C;
+  border-radius: 4px;
+}
+.dashboardselect{
+  margin-top: 5px;
+  width: 100%;
+}
+.dashboardselect {
+  width: 100%;
+  height: 50px;
+  font-size: 100%;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 0;
+  background-color: white;
+  border: none;
+  border-bottom-color:solid 2px #DCDCDC;
+  color: #5B709C;
+  padding: 10px;
+  padding-right: 38px;
+  transition: color 0.3s ease, background-color 0.3s ease, border-bottom-color 0.3s ease;
+}
+
+.containerlvl{
+  margin-top: 30px;
+}
+
+#dropdownPeriod{
+  margin-left: -55rem !important;
+  height: 50px;
+  font-size: 100%;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 0;
+  background-color: white;
+  border: none;
+  border-bottom-color:solid 2px #DCDCDC !important;
+  color: #5B709C;
+  padding: 10px;
+  padding-right: 38px;
+  transition: color 0.3s ease, background-color 0.3s ease, border-bottom-color 0.3s ease;
+}
+canvas{
+
+  width:730px !important;
+  height:457px !important;
+
+}

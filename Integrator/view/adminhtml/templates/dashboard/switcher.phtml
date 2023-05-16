@@ -1,0 +1,48 @@
+<?php
+$moduleName = $block->getModuleName();
+$accountList = $block->accountList($moduleName);
+$optionValue = $block->getCurrentAccount();
+$option = $optionValue['module'] . $optionValue['id'] . $optionValue['name'];
+?>
+
+<script>
+    function <?=/* @noEscape */ $moduleName ?>() {
+        document.getElementById('<?=/* @noEscape */ $moduleName ?>').submit();
+
+    }
+</script>
+
+<span class="store-switcher store-view">
+
+    <form name="addData" method="GET" id="<?=/* @noEscape */ $moduleName ?>" class="form" style="width:300px;" action=" <?=/* @noEscape */ $block->getUrl("integrator/dashboard/index"); ?>">
+
+        <select name="selectedmodule" class="form-control form-control-lg" onchange="<?=/* @noEscape */ $moduleName ?>();" style="border: 0; background:transparent;">
+            <?php if ($moduleName == 'Walmart') { ?>
+                <option value="" selected="selected" disabled>Switch DashBoard</option>
+            <?php } else {
+            ?>
+                <option value="" selected="selected" disabled>Select To switch account</option>
+                <?php
+            }
+            $accountList = $block->accountList($moduleName);
+            foreach ($accountList as $account) {
+                if ($moduleName == 'Walmart') {
+                ?>
+                    <option value="<?=/* @noEscape */ $moduleName . '.' . $account['id'] . '.' . $account['code']; ?>" <?php if ($moduleName . $account['id'] . $account['code'] == $option) {
+                                                                                                                            echo 'selected';
+                                                                                                                        } ?> )><?=/* @noEscape */ $account['code']; ?>
+                    </option>
+                <?php
+                } else {
+                ?>
+                    <option value="<?=/* @noEscape */ $moduleName . '.' . $account['id'] . '.' . $account['code']; ?>" <?php if ($moduleName . $account['id'] . $account['code'] == $option) {
+                                                                                                                            echo 'selected';
+                                                                                                                        } ?> )>Account: <?=/* @noEscape */ $account['code']; ?>
+                        [id:<?=/* @noEscape */ $account['id']; ?>]</option>
+            <?php }
+            }
+            ?>
+        </select>
+        <input name="form_key" type="hidden" value="<?=/* @noEscape */ $block->getFormKey(); ?>" />
+    </form>
+</span>

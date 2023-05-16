@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+  <table name="integrator_log" resource="default" engine="innodb" comment="Integrator Log">
+    <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true" comment="ID"/>
+    <column xsi:type="text" name="message" nullable="true" comment="Message"/>
+    <column xsi:type="mediumtext" name="context" nullable="true" comment="Context"/>
+    <column xsi:type="text" name="level" nullable="true" comment="Level"/>
+    <column xsi:type="text" name="level_name" nullable="true" comment="Level Name"/>
+    <column xsi:type="text" name="channel" nullable="true" comment="Channel"/>
+    <column xsi:type="datetime" name="datetime" on_update="false" nullable="true" comment="Date"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="id"/>
+    </constraint>
+  </table>
+  <table name="ced_integrator_query_conditions" resource="default" engine="innodb" comment="Integrator Query Condition">
+    <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true" comment="ID"/>
+    <column xsi:type="mediumtext" name="conditions_serialized" nullable="true" comment="Condition Serialized"/>
+    <column xsi:type="text" name="module_name" nullable="true" comment="Module Name"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="id"/>
+    </constraint>
+  </table>
+  <table name="ced_integrator_product_change_log" resource="default" engine="innodb" comment="Integrator Product Change Log">
+    <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true" comment="ID"/>
+    <column xsi:type="int" name="product_id" padding="11" unsigned="false" nullable="true" identity="false" default="0" comment="Product Id"/>
+    <column xsi:type="text" name="action" nullable="true" comment="Action"/>
+    <column xsi:type="int" name="threshold_limit" padding="11" unsigned="false" nullable="true" identity="false" default="0" comment="Threshold Limit"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="id"/>
+    </constraint>
+  </table>
+  <table name="quote" resource="checkout" comment="Sales Quote ">
+    <column xsi:type="varchar" name="ced_marketplace_order_id" nullable="true" length="255" comment="Ced Marketplace Order Id"/>
+  </table>
+  <table name="sales_order" resource="sales" comment="Sales Order">
+    <column xsi:type="varchar" name="ced_marketplace_order_id" nullable="true" length="255" comment="Ced Marketplace Order Id"/>
+  </table>
+</schema>

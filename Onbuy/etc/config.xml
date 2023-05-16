@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * CedCommerce
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End User License Agreement(EULA)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://cedcommerce.com/license-agreement.txt
+ *
+ * @category  Ced
+ * @package   Ced_Onbuy
+ * @author    CedCommerce Core Team <connect@cedcommerce.com>
+ * @copyright Copyright CEDCOMMERCE(http://cedcommerce.com/)
+ * @license   http://cedcommerce.com/license-agreement.txt
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <carriers>
+            <shipbyonbuy>
+                <active>1</active>
+                <sallowspecific>0</sallowspecific>
+                <model>Ced\Onbuy\Model\Carrier\Shipbyonbuy</model>
+                <name>OnBuy Shipping</name>
+                <price>0.00</price>
+                <title>OnBuy Shipping Method</title>
+                <type>I</type>
+                <specificerrmsg>This shipping method is not available. To use this shipping method, please contact us.</specificerrmsg>
+            </shipbyonbuy>
+        </carriers>
+        <payment>
+            <paybyonbuy>
+                <active>1</active>
+                <model>Ced\Onbuy\Model\Payment\PaybyOnbuy</model>
+                <order_status>Processing</order_status>
+                <title>PayPal(via Onbuy)</title>
+                <payment_action>sale</payment_action>
+                <allowspecific>0</allowspecific>
+            </paybyonbuy>
+        </payment>
+        
+    </default>
+</config>

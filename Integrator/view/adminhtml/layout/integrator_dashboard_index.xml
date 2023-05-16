@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+   <head>
+<css src="Ced_Integrator/css/subdash.css"/>
+   </head>
+    <body>
+     <referenceContainer name="page.main.actions">
+     <block class="Ced\Integrator\Block\Adminhtml\Dashboard\Switcher" template="Ced_Integrator::dashboard/switcher.phtml" as="switcher" name="switcher">
+                <action method="setUseConfirm">
+                    <argument name="params" xsi:type="string">0</argument>
+                </action>
+            </block>
+           <block class="Ced\Integrator\Block\Adminhtml\Dashboard\Back" after="switcher">
+         </block>
+        </referenceContainer>
+        <referenceContainer name="content">
+        <block class="Ced\Integrator\Block\Adminhtml\Dashboard\Dashboard" name="dashboard"/>
+       </referenceContainer>
+    </body>
+</page>

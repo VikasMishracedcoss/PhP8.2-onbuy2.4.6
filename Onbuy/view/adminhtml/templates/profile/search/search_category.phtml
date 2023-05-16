@@ -1,0 +1,155 @@
+<?php
+/**
+ * CedCommerce
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End User License Agreement(EULA)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://cedcommerce.com/license-agreement.txt
+ *
+ * @category  Ced
+ * @package   Ced_Onbuy
+ * @author    CedCommerce Core Team <connect@cedcommerce.com>
+ * @copyright Copyright CEDCOMMERCE(http://cedcommerce.com/)
+ * @license   http://cedcommerce.com/license-agreement.txt
+ */
+$profile = $block->getProfile();
+$seachCat = '';
+$catId = 0;
+if ($profile->getProfileCatSearch()){
+    $catId = $profile->getProfileCategory();
+    $seachCat = $profile->getProfileCatSearch();
+}
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$profileId = '';
+$_htmlId      = 'search_category';
+$onbuyNodeId = "";
+?>
+
+
+<script>
+    require([
+        'jquery',
+        'Magento_Ui/js/modal/confirm',
+        'underscore',
+        'mage/adminhtml/grid',
+        'prototype'
+    ], function($){
+
+       <?php if ($seachCat){ ?>
+           
+        var id = $('#searchcategory').val();
+               checkInput(id);
+
+     <?php } ?>
+
+        $('#search_category').click(function () {
+            $('#level_0').empty();
+         
+            var id = $('#searchcategory').val();
+
+            checkInput(id);
+        });
+
+        $('#level_0').change(function () {
+
+            var id = $('#level_0').val();
+            getAttributes(id);   
+        });
+        var catData = [$('#level_0').val()];
+
+        function getAttributes(id) {
+
+            new Ajax.Request("<?php echo $this->getUrl('*/*/UpdateCategoryAttributes');?>" + 'feature/' + id, {
+                method: "post",
+                onSuccess: function (transport) {
+                  
+                    $('#attribute-onbuyAttributes-container').html(transport.responseText);
+                }
+            });
+        }
+
+    });
+    function checkInput(catid) {      
+        var catId = <?php echo $catId; ?> ;
+        new Ajax.Request("<?php echo $this->getUrl('*/*/getCategory');?>" + 'searchText/' + catid, {
+            method: "post",
+            onSuccess: function (transport) {
+                console.log(transport.responseJSON['category']);
+                console.log('transport');
+                var select = $('level_0');
+               
+                for ( i=0; i<transport.responseJSON['category'].length; i++) {
+                    console.log(transport.responseJSON['category'][i]);
+
+                    if (transport.responseJSON['category'][i]['value'] == catId)
+                        select.insert(new Element('option', {'value': transport.responseJSON['category'][i]['value'], 'selected': 'selected'}).update(transport.responseJSON['category'][i]['label']));
+                    else
+                        select.insert(new Element('option', {"value": transport.responseJSON['category'][i]['value']}).update(transport.responseJSON['category'][i]['label']));
+                }
+
+            }
+        });
+    }
+    function childCategory(catid) {
+        console.log('check');
+        new Ajax.Request("<?php echo $this->getUrl('*/*/getCategory');?>" + 'searchText/' + catid, {
+            method: "post",
+            onSuccess: function (transport) {    
+
+            }
+        });
+
+    }
+</script>
+<div class="field" id="category-<?php /* @escapeNotVerified */ echo $_htmlId?>-container" data-attribute-code="<?php /* @escapeNotVerified */ echo $_htmlId?>"
+>
+
+        <button type="button" id="search_category">Search Category</button>
+</div>
+<style>
+    .ui-widget {
+        font-family: Trebuchet MS,Tahoma,Verdana,Arial,sans-serif;
+        font-size: 1.1em;
+    }
+    .ui-menu {
+        display: block;
+        list-style: outside none none;
+        margin: 0;
+        outline: medium none;
+        padding: 2px;
+    }
+    .ui-autocomplete {
+        cursor: default;
+        left: 0;
+        position: absolute;
+        top: 0;
+    }
+    .ui-menu .ui-menu-item a {
+        display: block;
+        font-weight: normal;
+        line-height: 1.5;
+        min-height: 0;
+        padding: 2px 0.4em;
+        text-decoration: none;
+    }
+    .ui-widget-content a {
+        color: #333333;
+    }
+    .ui-autocomplete .ui-state-focus {
+        border: 1px solid #fbcb09;
+        background: #fdf5ce url('images/ui-bg_glass_100_fdf5ce_1x400.png') 50% 50% repeat-x;
+        font-weight: bold;
+        color: #c77405;
+    }
+    .ui-autocomplete {
+        background: #eeeeee url("images/ui-bg_highlight-soft_100_eeeeee_1x100.png") repeat-x scroll 50% top;
+        border: 1px solid #dddddd;
+        color: #333333;
+        height: 300px;
+        width: 100px;
+        overflow: scroll;
+    }
+</style>

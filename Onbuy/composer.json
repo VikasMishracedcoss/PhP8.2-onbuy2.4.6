@@ -1,0 +1,16 @@
+{
+  "name": "ced/onbuy",
+  "description": "Onbuy Magento2 integration",
+  "require": {
+    "ced/integrator":"^1.0.0"
+  },
+  "license": [
+    "EULA"
+  ],
+  "autoload": {
+    "files": [ "registration.php" ],
+    "psr-4": {
+      "Ced\\Onbuy\\": ""
+    }
+  }
+}

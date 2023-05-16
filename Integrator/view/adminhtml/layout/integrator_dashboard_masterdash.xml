@@ -1,0 +1,10 @@
+<page xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+<head>
+<css src="Ced_Integrator/css/maindash.css"/>
+</head>   
+<body>
+<referenceContainer name="content">
+         <block class="Ced\Integrator\Block\Adminhtml\Dashboard\ModuleList" template="dashboard/mainDashboard.phtml"/>
+</referenceContainer>
+</body>
+</page>

@@ -1,0 +1,253 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * CedCommerce
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End User License Agreement(EULA)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://cedcommerce.com/license-agreement.txt
+ *
+ * @category    Ced
+ * @package     Ced_Onbuy
+ * @author      CedCommerce Core Team <connect@cedcommerce.com>
+ * @copyright   Copyright CEDCOMMERCE(http://cedcommerce.com/)
+ * @license     http://cedcommerce.com/license-agreement.txt
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="cedcommerce" translate="label" sortOrder="1">
+            <label>Cedcommerce</label>
+        </tab>
+
+        <!-- section start for Onbuy Configuration Tab in Cedcommerce section -->
+        <section id="onbuy_config" translate="label" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>OnBuy Configuration</label>
+            <tab>cedcommerce</tab>
+            <resource>Ced_Onbuy::system_config</resource>
+
+            <group id="product_upload" translate="label" type="text" sortOrder="50"  showInDefault="1" showInWebsite="1"
+                   showInStore="0">
+                <label>OnBuy Product Upload Setting</label>
+
+                <field id="onbuy_config_image" translate="label" type="select" sortOrder="0" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Use Parent Image as Child Product Image</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="onbuy_config_attr_from_parent" translate="label" type="multiselect" sortOrder="0" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Use From Parent Product</label>
+                    <source_model>Ced\Onbuy\Model\Source\OnbuyAttributes</source_model>
+                    <can_be_empty>1</can_be_empty>
+                    <comment><![CDATA[Select attributes which you want to taken from parent product.</b>]]></comment>
+                </field>
+
+                <field id="price_type" translate="label comment" type="select" sortOrder="2"  showInDefault="1"
+                       showInWebsite="0" showInStore="0">
+                    <label>OnBuy Product Price</label>
+                    <source_model>Ced\Onbuy\Model\Source\Config\Price</source_model>
+                    <comment><![CDATA[Select to send different product price to <b>OnBuy</b>]]></comment>
+                </field>
+                <field id="fix_price" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Modify by Fix Price</label>
+                    <validate>required-entry validate-number</validate>
+                    <depends>
+                        <field id="price_type" separator=",">plus_fixed,min_fixed</field>
+                    </depends>
+                </field>
+                <field id="percentage_price" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="0" showInStore="0" >
+                    <label>Modify by Percenctage Price</label>
+                    <validate>required-entry validate-number</validate>
+                    <comment><![CDATA[Numeric value Required for <b>Add/subtract % on Magento price</b> 5 for Example: Magento price +/- 5% of Magento price.<b>]]></comment>
+                    <depends>
+                        <field id="price_type" separator=",">plus_per,min_per</field>
+                    </depends>
+                </field>
+                <field id="different_price" translate="label" type="text" sortOrder="4" showInDefault="1" showInWebsite="0" showInStore="0" >
+                    <label>Map Price Attribute</label>
+                    <validate>required-entry</validate>
+                    <comment><![CDATA[<b>Attribute Code Required in case of <b>Custom Fixed Price</b>]]></comment>
+                    <depends>
+                        <field id="price_type">differ</field>
+                    </depends>
+                </field>
+
+                <field id="chunk_size" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Chunk Size (Product Upload)</label>
+                    <validate>validate-zero-or-greater validate-number</validate>
+                </field>
+
+                <field id="convert_curreny" translate="label comment" type="select" sortOrder="25"
+                       showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Convert Currency</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment> <![CDATA[Auto Convert Current Price to Euro.]]></comment>
+                </field>
+
+                <field id="primary_account" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Primary Account</label>
+                    <source_model>Ced\Onbuy\Model\Source\Accounts</source_model>
+                    <tooltip>Selected Account will used for profile creation. If you need to create profile for another account please select that particular account or leave it black. If this field will blank then account will be ask at the time of profile creation.</tooltip>
+                </field>
+                <field id="brand_excep" translate="label comment" type="select" sortOrder="27"
+                       showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Brand Exception</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment> <![CDATA[Select Yes if you are using brand except.]]></comment>
+                </field>
+
+
+
+                <field id="buy_box" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>check winning differnce</label>
+                    <validate>differnce by that you must assign as winner</validate>
+                </field>
+
+                  <field id="threshold" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Quantity Threshold</label>
+                </field>
+            </group>
+
+            <group id="order" translate="label" type="text" sortOrder="60"  showInDefault="1" showInWebsite="1"
+                   showInStore="0">
+                <label>Order Settings</label>
+
+                <field id="order_out_of_stock" translate="label comment" type="select" sortOrder="70"
+                       showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Fetch Order For Out Of Stock Product</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <tooltip>It will skip the validation check of quantity while placing OnBuy order in Magento.</tooltip>
+                </field>
+                <field id="customer_group" translate="label" type="select" sortOrder="77" showInDefault="1">
+                    <label>Customer Group</label>
+                    <source_model>Magento\Customer\Model\ResourceModel\Group\Collection</source_model>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="order_id_prefix" translate="label" type="text" sortOrder="80" showInDefault="1">
+                    <label>OnBuy Order Id Prefix</label>
+                    <comment>Prefix for OnBuy Order Increment ID</comment>
+                </field>
+                <field id="ship_method" translate="label comment" type="select" sortOrder="60"
+                       showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Shipping Method of OnBuy Orders</label>
+                    <validate>required-entry</validate>
+                    <source_model>Ced\Onbuy\Model\Config\ShippingMethods</source_model>
+                      
+                </field>
+                <field id="pay_method" translate="label comment" type="select" sortOrder="60"
+                       showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Payment Method of OnBuy Orders</label>
+                    <validate>required-entry</validate>
+                    <source_model>Ced\Onbuy\Model\Config\PaymentMethods</source_model>
+                     
+                   
+                </field>
+                <field id="order_notify_email" translate="label" type="text" sortOrder="50" showInDefault="1">
+                    <label>Order Notification Email</label>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="order_refund" translate="label comment" type="select" sortOrder="60"
+                       showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>OnBuy Orders Refund Reason</label>
+                    <validate>required-entry</validate>
+                    <source_model>Ced\Onbuy\Model\Config\OrderRefund</source_model>
+                </field>
+                <field id="order_cancel" translate="label comment" type="select" sortOrder="60"
+                       showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>OnBuy Orders Cancel Reason</label>
+                    <validate>required-entry</validate>
+                    <source_model>Ced\Onbuy\Model\Config\OrderCancel</source_model>
+
+                </field>
+                <field id="order_cancel_reason" translate="label" type="text" sortOrder="65" showInDefault="1">
+                    <label>Order Cancel Reason</label>
+                    <validate>required-entry</validate>
+                    <depends>
+                        <field id="order_cancel">5</field>
+                    </depends>
+                </field>
+
+                <field id="shipping_methods" translate="label" sortOrder="6" showInDefault="4" showInWebsite="1" showInStore="0">
+                    <label>Shipping Methods</label>
+                    <frontend_model>Ced\Onbuy\Block\Adminhtml\Config\Field\ShippingMethods</frontend_model>
+                    <backend_model>Ced\Onbuy\Model\Config\ArraySerialized</backend_model>
+                    <comment> <![CDATA[Map Shipping Carrier of OnBuy with Magento Carrier Title, using the <b>'Add Method'</b>. For <b>Tracking Url</b> use the following format - <b>www.basetrackingurl.com/[trackingId]</b>. Eg : https://www.fedex.com/apps/fedextrack/?action=track&trackingnumber=[trackingId]&cntry_code=us&locale=en_US]]></comment>
+                    <tooltip>It is case sensitive so save the exact carrier title used while shipping orders.</tooltip>
+                </field>
+
+
+
+
+
+            </group>
+
+            <group id="onbuy_cron" translate="label" type="text" sortOrder="80" showInDefault="1">
+                <label>OnBuy Cron Settings</label>
+                <field id="order_cron" translate="label" type="select" sortOrder="10" showInDefault="1">
+                    <label>Order Cron</label>
+                    <source_model>Magento\Config\Model\Config\Source\Enabledisable</source_model>
+                </field>
+
+                <field id="feeds_sync_cron" translate="label" type="select" sortOrder="22" showInDefault="1">
+                    <label>Feeds Syncing Cron</label>
+                    <source_model>Magento\Config\Model\Config\Source\Enabledisable</source_model>
+                </field>
+                <field id="inventory_cron" translate="label" type="select" sortOrder="22" showInDefault="1">
+                    <label>Inventory And Price Syncing Cron</label>
+                    <source_model>Magento\Config\Model\Config\Source\Enabledisable</source_model>
+                </field>
+
+            </group>
+
+
+
+      
+
+        </section>
+
+        <!-- section start for Shipping Methods Tab in Sales Tab -->
+        <section id="carriers">
+            <group id="shipbyonbuy" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>OnBuy Payment Method(Default)</label>
+                <field id="active" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="title" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Title</label>
+                </field>
+            </group>
+        </section>
+        <!-- section end for Shipping Methods Tab in Sales Tab -->
+
+        <!-- section start for Payment Methods Tab in Sales Tab -->
+        <section id="payment">
+            <group id="paybyonbuy" translate="label" type="text" sortOrder="200" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>OnBuy</label>
+                <field id="active" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="title" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Title</label>
+                </field>
+                <field id="order_status" translate="label" type="select" sortOrder="3" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>New order status</label>
+                    <source_model>Magento\Sales\Model\Config\Source\Order\Status</source_model>
+                </field>
+
+            </group>
+        </section>
+        <!-- section end PaymentPoliciesment Methods Tab in Sales Tab -->
+    </system>
+</config>

@@ -1,0 +1,915 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * CedCommerce
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End User License Agreement (EULA)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://cedcommerce.com/license-agreement.txt
+ *
+ * @category    Ced
+ * @package     Ced_Onbuy
+ * @author      CedCommerce Core Team <connect@cedcommerce.com>
+ * @copyright   Copyright CedCommerce (http://cedcommerce.com/)
+ * @license     http://cedcommerce.com/license-agreement.txt
+ */
+-->
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">onbuy_profile_form.onbuy_profile_form_data_source</item>
+        </item>
+        <item name="config" xsi:type="array">
+            <item name="component" xsi:type="string">Ced_Onbuy/js/profile/form</item>
+            <item name="namespace" xsi:type="string">onbuy_profile_form</item>
+            <item name="deps" xsi:type="string">onbuy_profile_form.onbuy_profile_form_data_source</item>
+            <item name="dataScope" xsi:type="string">data</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Profile Information</item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+
+        <!--<item name="buttons" xsi:type="array">
+            <item name="back" xsi:type="array">
+                <item name="name" xsi:type="string">back</item>
+                <item name="label" xsi:type="string" translate="true">Back</item>
+                <item name="class" xsi:type="string">back</item>
+                <item name="url" xsi:type="string">onbuy/profile/index</item>
+            </item>
+            <item name="delete" xsi:type="string">Ced\Onbuy\Block\Adminhtml\Profile\Ui\Button\Delete</item>
+            <item name="save" xsi:type="string">Ced\Onbuy\Block\Adminhtml\Profile\Ui\Button\Save</item>
+            <item name="save_and_continue" xsi:type="string">
+                Ced\Onbuy\Block\Adminhtml\Profile\Ui\Button\SaveAndContinue
+            </item>
+        </item>-->
+        <item name="buttons" xsi:type="array">
+            <item name="back" xsi:type="array">
+                <item name="name" xsi:type="string">back</item>
+                <item name="label" xsi:type="string" translate="true">Back</item>
+                <item name="class" xsi:type="string">back</item>
+                <item name="url" xsi:type="string">onbuy/profile/index</item>
+            </item>
+            <!-- <item name="save" xsi:type="array">
+                 <item name="name" xsi:type="string">save</item>
+                 <item name="label" xsi:type="string" translate="true">Save</item>
+                 <item name="class" xsi:type="string">save</item>
+                 <item name="url" xsi:type="string">onbuy/account/save</item>
+             </item>-->
+
+            <!--            <item name="delete" xsi:type="string">Ced\Onbuy\Block\Adminhtml\Profile\Ui\Button\Delete</item>-->
+            <item name="save" xsi:type="string">Ced\Onbuy\Block\Adminhtml\Profile\Ui\Button\Save</item>
+            <!--<item name="save_and_continue" xsi:type="string">
+                Ced\Onbuy\Block\Adminhtml\Profile\Ui\Button\SaveAndContinue
+            </item>-->
+        </item>
+    </argument>
+
+    <dataSource name="onbuy_profile_form_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Ced\Onbuy\Ui\DataProvider\Profile\Form</argument>
+            <argument name="name" xsi:type="string">onbuy_profile_form_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">id</argument>
+            <argument name="requestFieldName" xsi:type="string">id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="submit_url" xsi:type="url" path="onbuy/profile/save"/>
+                    <item name="validate_url" xsi:type="url" path="onbuy/profile/getCategory"/>
+                    <item name="get_account_detail_url" xsi:type="url" path="onbuy/account/getDetails"/>
+                    <item name="get_category" xsi:type="url" path="onbuy/profile/getCategories"/>
+                    <item name="get_attributes" xsi:type="url" path="onbuy/profile/UpdateCategoryAttributes"/>
+                </item>
+            </argument>
+        </argument>
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+    </dataSource>
+
+    <fieldset name="general_information">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Information</item>
+                <item name="collapsible" xsi:type="boolean">true</item>
+            </item>
+        </argument>
+
+        <field name="id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">onbuy_profile_form_data_source</item>
+                </item>
+            </argument>
+        </field>
+
+        <field name="profile_status">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="string">1</item>
+                        <item name="false" xsi:type="string">0</item>
+                    </item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="default" xsi:type="string">1</item>
+                    <item name="source" xsi:type="string">onbuy_profile_form_data_source</item>
+                    <item name="label" xsi:type="string" translate="true">Enable Profile</item>
+                </item>
+            </argument>
+        </field>
+
+        <field name="profile_name">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">string</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">onbuy_profile_form_data_source</item>
+                    <item name="label" xsi:type="string" translate="true">Profile Name</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="validate-alphanum-with-spaces" xsi:type="boolean">true</item>
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+
+
+       <!-- <field name="profile_account">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Ced\Onbuy\Model\Source\Accounts</item>
+                <item name="config" xsi:type="array">
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">string</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="component" xsi:type="string">Ced_Onbuy/js/profile/account</item>
+                    <item name="source" xsi:type="string">onbuy_profile_form_data_source</item>
+                    <item name="label" xsi:type="string" translate="true">Account Id</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+-->
+
+        <!-- <field name="account_configuration_id">
+             <argument name="data" xsi:type="array">
+                 <item name="options" xsi:type="object">Ced\Onbuy\Model\Source\AccountConfig\Configuration</item>
+                 <item name="config" xsi:type="array">
+                     <item name="visible" xsi:type="boolean">false</item>
+                     <item name="dataType" xsi:type="string">string</item>
+ &lt;!&ndash;                    <item name="component" xsi:type="string">Ced_Onbuy/js/profile/account</item>&ndash;&gt;
+                     <item name="formElement" xsi:type="string">select</item>
+                     <item name="source" xsi:type="string">onbuy_profile_form_data_source</item>
+                     <item name="label" xsi:type="string" translate="true">Account Configuration</item>
+                     <item name="validation" xsi:type="array">
+                         <item name="required-entry" xsi:type="boolean">true</item>
+                     </item>
+                 </item>
+             </argument>
+         </field>-->
+
+    </fieldset>
+
+
+
+    <fieldset name="profile_mappings">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Mappings</item>
+                <item name="collapsible" xsi:type="boolean">true</item>
+            </item>
+        </argument>
+
+        <!--<field name="profile_category">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">onbuy_profile_form_data_source</item>
+                    <item name="label" xsi:type="string" translate="true">Profile Category</item>
+                    &lt;!&ndash;<item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>&ndash;&gt;
+                </item>
+            </argument>
+        </field>
+        <field name="profile_sub_category">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Ced\Onbuy\Model\Source\Profile\Category</item>
+                <item name="config" xsi:type="array">
+                    <item name="url" xsi:type="url" path="onbuy/profile/getCategories">
+                        <param name="_nosid">1</param>
+                    </item>
+                    <item name="sortOrder" xsi:type="number">50</item>
+                    <item name="label" xsi:type="string" translate="true">Profile Category</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="componentType" xsi:type="string">field</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="component" xsi:type="string">Ced_Onbuy/js/profile/category</item>
+                    <item name="elementTmpl" xsi:type="string">Ced_Onbuy/grid/filters/elements/ui-select</item>
+                    <item name="source" xsi:type="string">item</item>
+                    <item name="breakLine" xsi:type="boolean">true</item>
+                    <item name="filterOptions" xsi:type="boolean">true</item>
+                    <item name="showCheckbox" xsi:type="boolean">true</item>
+                    <item name="disableLabel" xsi:type="boolean">true</item>
+                    <item name="multiple" xsi:type="boolean">true</item>
+                    <item name="visibleValue" xsi:type="string">3</item>
+                    <item name="levelsVisibility" xsi:type="boolean">true</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="required" xsi:type="boolean">true</item>
+                    &lt;!&ndash;<item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>&ndash;&gt;
+                    <item name="listens" xsi:type="array">
+                        <item name="${ $.namespace }.${ $.namespace }:responseData" xsi:type="string">setParsed</item>
+                    </item>
+                    <item name="imports" xsi:type="array">
+                        <item name="disabled" xsi:type="string">${ $.provider }:data.profile_sub_category_disable</item>
+                    </item>
+                    &lt;!&ndash;<item name="default" xsi:type="string">DefaultCategory_DefaultCategory</item>&ndash;&gt;
+                </item>
+
+            </argument>
+        </field>-->
+
+        <field name="root_level">
+            <argument name="data" xsi:type="array">
+                <!--                <item name="options" xsi:type="object">Ced\Onbuy\Model\Source\Profile\Category\Rootlevel</item>-->
+                <item name="config" xsi:type="array">
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">string</item>
+                    <item name="formElement" xsi:type="string">input</item>
+<!--                    <item name="component" xsi:type="string">Ced_Onbuy/js/profile/update</item>-->
+                    <item name="source" xsi:type="string">onbuy_profile_form_data_source</item>
+                    <item name="label" xsi:type="string" translate="true">Search Category</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+
+        <!--<field name="search_category">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Ced_Onbuy/js/profile/category</item>
+                    <item name="elementTmpl" xsi:type="string">Ced_Onbuy/form/element/custom-button</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="elementId" xsi:type="string">search_category</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">onbuy_profile_form_data_source</item>
+                    <item name="label" xsi:type="string" translate="true">Search Category</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                </item>
+            </argument>
+        </field>-->
+
+<!--        <field name="search_category">-->
+<!--            <argument name="data" xsi:type="array">-->
+<!--                <item name="config" xsi:type="array">-->
+<!--                    <item name="formElement" xsi:type="string">select</item>-->
+<!--                    &lt;!&ndash;<item name="notice" xsi:type="string">The categroy has to be saved after selecting an image</item>&ndash;&gt;-->
+<!--                    <item name="elementTmpl" xsi:type="string">Ced_Onbuy/form/element/custom-button</item>-->
+<!--                    <item name="elementId" xsi:type="string">search_category</item>-->
+<!--                    <item name="component" xsi:type="string">Ced_Onbuy/js/profile/category</item>-->
+<!--                    <item name="dialogUrl" xsi:type="url" path="cms/wysiwyg_images/index">-->
+<!--                        <param name="target_element_id">search_category</param>-->
+<!--&lt;!&ndash;                        <param name="type">file</param>&ndash;&gt;-->
+<!--                    </item>-->
+<!--&lt;!&ndash;                    <item name="component" xsi:type="string">Vendor_Module/js/form/element/button</item>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <item name="label" xsi:type="string" translate="true">Custom Attribute Label</item>&ndash;&gt;-->
+<!--                </item>-->
+<!--            </argument>-->
+<!--        </field>-->
+        <field name="search_category">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Ced_Onbuy/js/profile/category</item>
+                    <item name="elementTmpl" xsi:type="string">Ced_Onbuy/form/element/custom-button</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">onbuy_profile_form_data_source</item>
+<!--                    <item name="label" xsi:type="string" translate="true">Search Category</item>-->
+                    <item name="visible" xsi:type="boolean">true</item>
+                </item>
+            </argument>
+        </field>
+
+        <field name="level-0">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Ced\Onbuy\Model\Source\Profile\Category\Rootlevel</item>
+                <item name="config" xsi:type="array">
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">string</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="component" xsi:type="string">Ced_Onbuy/js/profile/update</item>
+                    <item name="source" xsi:type="string">onbuy_profile_form_data_source</item>
+                    <item name="label" xsi:type="string" translate="true">Root Level Category</item>
+                    <!--<item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>-->
+                </item>
+            </argument>
+        </field>
+        <!--<field name="profile_account">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Ced\EbayMultiAccount\Model\Source\Accounts</item>
+                <item name="config" xsi:type="array">
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">string</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="component" xsi:type="string">Ced_EbayMultiAccount/js/profile/account</item>
+                    <item name="source" xsi:type="string">ebaymultiaccount_profile_form_data_source</item>
+                    <item name="label" xsi:type="string" translate="true">Account Id</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>-->
+
+
+
+
+
+       <!-- <field name="level-1">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="dataType" xsi:type="string">string</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="component" xsi:type="string">Ced_Onbuy/js/profile/category</item>
+                    <item name="source" xsi:type="string">onbuy_profile_form_data_source</item>
+                    <item name="label" xsi:type="string" translate="true">Level 1 Category</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="level-2">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="dataType" xsi:type="string">string</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="component" xsi:type="string">Ced_Onbuy/js/profile/category</item>
+                    <item name="source" xsi:type="string">onbuy_profile_form_data_source</item>
+                    <item name="label" xsi:type="string" translate="true">Level 2 Category</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="level-3">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="dataType" xsi:type="string">string</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="component" xsi:type="string">Ced_Onbuy/js/profile/category</item>
+                    <item name="source" xsi:type="string">onbuy_profile_form_data_source</item>
+                    <item name="label" xsi:type="string" translate="true">Level 3 Category</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="level-4">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="dataType" xsi:type="string">string</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="component" xsi:type="string">Ced_Onbuy/js/profile/category</item>
+                    <item name="source" xsi:type="string">onbuy_profile_form_data_source</item>
+                    <item name="label" xsi:type="string" translate="true">Level 4 Category</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="level-5">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="dataType" xsi:type="string">string</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="component" xsi:type="string">Ced_Onbuy/js/profile/category</item>
+                    <item name="source" xsi:type="string">onbuy_profile_form_data_source</item>
+                    <item name="label" xsi:type="string" translate="true">Level 5 Category</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <container name="profile_category_attributes">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                </item>
+            </argument>
+            <htmlContent name="html_content">
+                <argument name="block" xsi:type="object">Ced\Onbuy\Block\Adminhtml\Profile\Edit\Tab\Attribute\Onbuyattribute</argument>
+            </htmlContent>
+        </container>
+        <container name="profile_required_attributes">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                </item>
+            </argument>
+            <htmlContent name="html_content">
+                <argument name="block" xsi:type="object">Ced\Onbuy\Block\Adminhtml\Profile\Edit\Tab\Attribute\Requiredattribute</argument>
+            </htmlContent>
+        </container>-->
+
+
+        <!-- <field name="profile_category">
+             <argument name="data" xsi:type="array">
+                 <item name="config" xsi:type="array">
+                     <item name="visible" xsi:type="boolean">false</item>
+                     <item name="dataType" xsi:type="string">text</item>
+                     <item name="formElement" xsi:type="string">input</item>
+                     <item name="source" xsi:type="string">onbuy_profile_form_data_source</item>
+                     <item name="label" xsi:type="string" translate="true">Profile Category</item>
+                     <item name="validation" xsi:type="array">
+                         <item name="required-entry" xsi:type="boolean">true</item>
+                     </item>
+                 </item>
+             </argument>
+         </field>
+         <field name="profile_sub_category">
+             <argument name="data" xsi:type="array">
+                 <item name="options" xsi:type="object">Ced\Onbuy\Model\Source\Profile\Category</item>
+                 <item name="config" xsi:type="array">
+                     <item name="sortOrder" xsi:type="number">50</item>
+                     <item name="label" xsi:type="string" translate="true">Profile Category</item>
+                     <item name="dataType" xsi:type="string">text</item>
+                     <item name="componentType" xsi:type="string">field</item>
+                     <item name="formElement" xsi:type="string">select</item>
+                     <item name="component" xsi:type="string">Ced_Onbuy/js/profile/category</item>
+                     <item name="elementTmpl" xsi:type="string">Ced_Onbuy/grid/filters/elements/ui-select</item>
+                     <item name="source" xsi:type="string">item</item>
+                     <item name="breakLine" xsi:type="boolean">true</item>
+                     <item name="filterOptions" xsi:type="boolean">true</item>
+                     <item name="showCheckbox" xsi:type="boolean">true</item>
+                     <item name="disableLabel" xsi:type="boolean">true</item>
+                     <item name="multiple" xsi:type="boolean">true</item>
+                     <item name="visibleValue" xsi:type="string">3</item>
+                     <item name="levelsVisibility" xsi:type="number">2</item>
+                     <item name="visible" xsi:type="boolean">true</item>
+                     <item name="required" xsi:type="boolean">true</item>
+                     <item name="validation" xsi:type="array">
+                         <item name="required-entry" xsi:type="boolean">true</item>
+                     </item>
+                     <item name="listens" xsi:type="array">
+                         <item name="${ $.namespace }.${ $.namespace }:responseData" xsi:type="string">setParsed</item>
+                     </item>
+                     <item name="imports" xsi:type="array">
+                         <item name="disabled" xsi:type="string">${ $.provider }:data.profile_sub_category_disable</item>
+                     </item>
+                     &lt;!&ndash;<item name="default" xsi:type="string">DefaultCategory_DefaultCategory</item>&ndash;&gt;
+                 </item>
+
+             </argument>
+         </field>-->
+
+        <!--<field name="category_id">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Ced\Onbuy\Model\Source\Strategy\Assignment\Category</item>
+                <item name="config" xsi:type="array">
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="filterOptions" xsi:type="boolean">true</item>
+                    <item name="chipsEnabled" xsi:type="boolean">true</item>
+                    <item name="multiple" xsi:type="boolean">false</item>
+                    <item name="showCheckbox" xsi:type="boolean">true</item>
+                    <item name="disableLabel" xsi:type="boolean">true</item>
+                    <item name="levelsVisibility" xsi:type="string">1</item>
+                    <item name="elementTmpl" xsi:type="string">ui/grid/filters/elements/ui-select</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/form/element/ui-select</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="source" xsi:type="string">onbuy_profile_form_data_source</item>
+                    <item name="label" xsi:type="string" translate="true">Auto Assign Category</item>
+                    <item name="additionalInfo" xsi:type="string"><![CDATA[
+                       The selected Category product addition will be observed and assigned automatically to this profile on selection.]]>
+                    </item>
+                </item>
+            </argument>
+        </field>-->
+
+
+
+        <!--<container name="profile_account">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataScope" xsi:type="string"></item>
+                    <item name="breakLine" xsi:type="boolean">false</item>
+                    <item name="formElement" xsi:type="string">container</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/form/components/group</item>
+                    <item name="sortOrder" xsi:type="number">10</item>
+                </item>
+            </argument>
+            <field name="account_id">
+                <argument name="data" xsi:type="array">
+                    <item name="options" xsi:type="object">Ced\Onbuy\Model\Source\Account</item>
+                    <item name="config" xsi:type="array">
+                        <item name="label" xsi:type="string" translate="true">Account</item>
+                        <item name="formElement" xsi:type="string">select</item>
+                        <item name="component" xsi:type="string">Ced_Onbuy/js/profile/account</item>
+                        <item name="elementTmpl" xsi:type="string">ui/grid/filters/elements/ui-select</item>
+                        <item name="dataScope" xsi:type="string">account_id</item>
+                        <item name="filterOptions" xsi:type="boolean">true</item>
+                        <item name="chipsEnabled" xsi:type="boolean">true</item>
+                        <item name="showCheckbox" xsi:type="boolean">true</item>
+                        <item name="disableLabel" xsi:type="boolean">true</item>
+                        <item name="multiple" xsi:type="boolean">false</item>
+                        <item name="levelsVisibility" xsi:type="number">1</item>
+                        <item name="sortOrder" xsi:type="number">20</item>
+                        <item name="required" xsi:type="boolean">false</item>
+                        <item name="listens" xsi:type="array">
+                            <item name="index=create_account:responseData" xsi:type="string">setParsed</item>
+                            <item name="newOption" xsi:type="string">toggleOptionSelected</item>
+                        </item>
+                        <item name="validation" xsi:type="array">
+                            <item name="required-entry" xsi:type="boolean">true</item>
+                        </item>
+                    </item>
+                </argument>
+            </field>
+            <container name="create_account_button">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="title" xsi:type="string" translate="true">Add Account</item>
+                        <item name="formElement" xsi:type="string">container</item>
+                        <item name="additionalClasses" xsi:type="string">admin__field-small</item>
+                        <item name="component" xsi:type="string">Magento_Ui/js/form/components/button</item>
+                        <item name="template" xsi:type="string">ui/form/components/button/container</item>
+
+                        <item name="actions" xsi:type="array">
+                            <item name="0" xsi:type="array">
+                                <item name="targetName" xsi:type="string">
+                                    onbuy_profile_form.onbuy_profile_form.profile_mappings.create_account_modal
+                                </item>
+                                <item name="actionName" xsi:type="string">toggleModal</item>
+                            </item>
+                            <item name="1" xsi:type="array">
+                                <item name="targetName" xsi:type="string">
+                                    onbuy_profile_form.onbuy_profile_form.profile_mappings.create_account_modal.create_account
+                                </item>
+                                <item name="actionName" xsi:type="string">render</item>
+                            </item>
+                            <item name="2" xsi:type="array">
+                                <item name="targetName" xsi:type="string">
+                                    onbuy_profile_form.onbuy_profile_form.profile_mappings.create_account_modal.create_account
+                                </item>
+                                <item name="actionName" xsi:type="string">resetForm</item>
+                            </item>
+                        </item>
+                        <item name="additionalForGroup" xsi:type="boolean">true</item>
+                        <item name="provider" xsi:type="boolean">false</item>
+                        <item name="source" xsi:type="string">profile</item>
+                        <item name="displayArea" xsi:type="string">insideGroup</item>
+                    </item>
+                </argument>
+            </container>
+        </container>
+        <modal name="create_account_modal">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="isTemplate" xsi:type="boolean">false</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/modal/modal-component</item>
+                    <item name="options" xsi:type="array">
+                        <item name="title" xsi:type="string">Add Account</item>
+                        <item name="type" xsi:type="string">slide</item>
+                    </item>
+                    <item name="imports" xsi:type="array">
+                        <item name="state" xsi:type="string">!index=create_account:responseStatus</item>
+                    </item>
+                </item>
+            </argument>
+            <container name="create_account">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="label" xsi:type="string" translate="true"></item>
+                        <item name="formElement" xsi:type="string">container</item>
+                        <item name="component" xsi:type="string">Magento_Ui/js/form/components/insert-form</item>
+                        <item name="dataScope" xsi:type="string"></item>
+                        <item name="update_url" xsi:type="url" path="mui/index/render"/>
+                        <item name="render_url" xsi:type="url" path="mui/index/render_handle">
+                            <param name="handle">onbuy_account_edit</param>
+                            <param name="buttons">1</param>
+                        </item>
+                        <item name="autoRender" xsi:type="boolean">false</item>
+                        <item name="ns" xsi:type="string">onbuy_account_form</item>
+                        <item name="externalProvider" xsi:type="string">onbuy_account_form.onbuy_account_form_data_source</item>
+                        <item name="toolbarContainer" xsi:type="string">${ $.parentName }</item>
+                        <item name="formSubmitType" xsi:type="string">ajax</item>
+                    </item>
+                </argument>
+            </container>
+        </modal>-->
+        <!--TODO: FIX not disabled on new profile-->
+
+        <!--<field name="profile_category">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">onbuy_profile_form_data_source</item>
+                    <item name="label" xsi:type="string" translate="true">Profile Category</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>-->
+
+
+        <!--        &lt;!&ndash;TODO: replace with dynamicRows&ndash;&gt;-->
+        <!--        <container name="profile_category_attribute_mapping_js">-->
+        <!--            <htmlContent name="html_content">-->
+        <!--                <argument name="block" xsi:type="object">Ced\Onbuy\Block\Adminhtml\Profile\Ui\Form\Js</argument>-->
+        <!--            </htmlContent>-->
+        <!--        </container>-->
+        <!--        <container name="profile_category_attributes">-->
+        <!--            <argument name="data" xsi:type="array">-->
+        <!--                <item name="config" xsi:type="array">-->
+        <!--                    <item name="sortOrder" xsi:type="number">100</item>-->
+        <!--                </item>-->
+        <!--            </argument>-->
+        <!--            <htmlContent name="html_content">-->
+        <!--                <argument name="block" xsi:type="object">Ced\Onbuy\Block\Adminhtml\Profile\Ui\Form\AttributeMapping-->
+        <!--                </argument>-->
+        <!--            </htmlContent>-->
+        <!--        </container>-->
+    </fieldset>
+    <fieldset name="mapping">
+    <argument name="data" xsi:type="array">
+        <item name="config" xsi:type="array">
+            <item name="collapsible" xsi:type="boolean">true</item>
+            <item name="label" xsi:type="string" translate="true">Category Dependent Attributes Mapping</item>
+        </item>
+    </argument>
+        <container name="attribute_mapping">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="component" xsi:type="string">Magento_Ui/js/dynamic-rows/dynamic-rows</item>
+                    <item name="template" xsi:type="string">ui/dynamic-rows/templates/default</item>
+                    <item name="componentType" xsi:type="string">dynamicRows</item>
+                    <item name="recordTemplate" xsi:type="string">record</item>
+                    <item name="addButtonLabel" xsi:type="string">Add Row</item>
+                    <item name="deleteProperty" xsi:type="boolean">false</item>
+                    <item name="additionalClasses" xsi:type="string">admin__field-wide</item>
+                </item>
+            </argument>
+            <container name="record">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="label" xsi:type="string" translate="true">Dynamic Rows</item>
+                        <item name="component" xsi:type="string" translate="true">Magento_Ui/js/dynamic-rows/record</item>
+                        <item name="isTemplate" xsi:type="boolean">true</item>
+                        <item name="is_collection" xsi:type="boolean">true</item>
+                        <item name="showFallbackReset" xsi:type="boolean">false</item>
+                    </item>
+                </argument>
+                <field name="id">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="label" xsi:type="string" translate="true">ID</item>
+                            <item name="visible" xsi:type="boolean">false</item>
+                            <item name="formElement" xsi:type="string">input</item>
+                            <item name="dataScope" xsi:type="string">id</item>
+                        </item>
+                    </argument>
+                </field>
+                <field name="category_attributes">
+                    <argument name="data" xsi:type="array">
+                        <item name="options" xsi:type="object">Ced\Onbuy\Model\Source\CategoryAttributes</item>
+                        <item name="config" xsi:type="array">
+                            <item name="dataType" xsi:type="string">string</item>
+                            <item name="label" xsi:type="string" translate="true">Category Dependent Attributes</item>
+                            <item name="formElement" xsi:type="string">select</item>
+                            <item name="source" xsi:type="string">onbuy_profile_form_data_source</item>
+                            <item name="validation" xsi:type="array">
+                                <item name="required-entry" xsi:type="boolean">true</item>
+                            </item>
+                        </item>
+                    </argument>
+                </field>
+
+                <field name="magento_attributes" formElement="select">
+                    <argument name="data" xsi:type="array">
+                        <item name="options" xsi:type="object">Ced\Onbuy\Model\Source\MagentoAttributes</item>
+                        <item name="config" xsi:type="array">
+                            <item name="visible" xsi:type="boolean">true</item>
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="formElement" xsi:type="string">select</item>
+                            <item name="source" xsi:type="string">onbuy_profile_form_data_source</item>
+                            <item name="label" xsi:type="string" translate="true">Magento Catalog Attribute</item>
+                            <item name="validation" xsi:type="array">
+                                <item name="required-entry" xsi:type="boolean">false</item>
+                            </item>
+                        </item>
+                    </argument>
+                </field>
+                <field name="default_text">
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="label" xsi:type="string" translate="true">Default Value</item>
+                            <item name="visible" xsi:type="boolean">false</item>
+                            <item name="formElement" xsi:type="string">input</item>
+                            <item name="dataScope" xsi:type="string">id</item>
+                        </item>
+                    </argument>
+                </field>
+                <field name="default_select" formElement="select">
+                    <argument name="data" xsi:type="array">
+                        <item name="options" xsi:type="object">Ced\Onbuy\Model\Source\CategoryAttributes</item>
+                        <item name="config" xsi:type="array">
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="label" xsi:type="string" translate="true">Default Value</item>
+                            <item name="formElement" xsi:type="string">select</item>
+                            <item name="source" xsi:type="string">onbuy_profile_form_data_source</item>
+                            <item name="validation" xsi:type="array">
+                                <item name="required-entry" xsi:type="boolean">true</item>
+                            </item>
+                        </item>
+                    </argument>
+                </field>
+
+
+
+                <actionDelete>
+                    <argument name="data" xsi:type="array">
+                        <item name="config" xsi:type="array">
+                            <item name="componentType" xsi:type="string">actionDelete</item>
+                            <item name="dataType" xsi:type="string">text</item>
+                            <item name="fit" xsi:type="boolean">false</item>
+                            <item name="label" xsi:type="string">Actions</item>
+                            <item name="additionalClasses" xsi:type="string">data-grid-actions-cell</item>
+                            <item name="template" xsi:type="string">Magento_Backend/dynamic-rows/cells/action-delete</item>
+                        </item>
+                    </argument>
+                </actionDelete>
+            </container>
+        </container>
+    </fieldset>
+
+    <!--<fieldset name="profile_products">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Profile Products</item>
+                <item name="collapsible" xsi:type="boolean">false</item>
+            </item>
+        </argument>
+        <field name="in_profile_products">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">onbuy_profile_form_data_source</item>
+                    <item name="label" xsi:type="string" translate="true">Selected Products</item>
+                </item>
+            </argument>
+        </field>
+        <container name="profile_products_container">
+            <htmlContent name="html_content">
+                <argument name="block" xsi:type="object">Ced\Onbuy\Block\Adminhtml\Profile\Ui\Product</argument>
+            </htmlContent>
+        </container>
+    </fieldset>-->
+
+    <!--<fieldset name="profile_products">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Products</item>
+                <item name="collapsible" xsi:type="boolean">true</item>
+            </item>
+        </argument>
+        <field name="filter">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="component" xsi:type="string">Ced_Onbuy/js/profile/filter</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">onbuy_profile_form_data_source</item>
+                    <item name="label" xsi:type="string" translate="true">Product Filter</item>
+                </item>
+            </argument>
+        </field>
+
+        &lt;!&ndash;TODO: FIX Issue: datasource not reloads and refresh from ajax, local storeage is used. and data is not refreshed in grid.&ndash;&gt;
+        <field name="store_id">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Magento\Store\Ui\Component\Listing\Column\Store\Options</item>
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">int</item>
+                    <item name="component" xsi:type="string">Ced_Onbuy/js/profile/store-id</item>
+                    <item name="label" xsi:type="string" translate="true">Default Store</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="source" xsi:type="string">page</item>
+                    <item name="dataScope" xsi:type="string">store_id</item>
+                    <item name="default" xsi:type="string">0</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="tooltip" xsi:type="array">
+                        <item name="description" xsi:type="string">Default magento store for product export for this
+                            profile."
+                        </item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+
+        <field name="category_id">
+            &lt;!&ndash; Temporary field for Assignment Strategy &ndash;&gt;
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Ced\Onbuy\Model\Source\Strategy\Assignment\Category</item>
+                <item name="config" xsi:type="array">
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="filterOptions" xsi:type="boolean">true</item>
+                    <item name="chipsEnabled" xsi:type="boolean">true</item>
+                    <item name="multiple" xsi:type="boolean">false</item>
+                    <item name="showCheckbox" xsi:type="boolean">true</item>
+                    <item name="disableLabel" xsi:type="boolean">true</item>
+                    <item name="levelsVisibility" xsi:type="string">1</item>
+                    <item name="elementTmpl" xsi:type="string">ui/grid/filters/elements/ui-select</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/form/element/ui-select</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="source" xsi:type="string">onbuy_profile_form_data_source</item>
+                    <item name="label" xsi:type="string" translate="true">Auto Assign Category</item>
+                    <item name="additionalInfo" xsi:type="string"><![CDATA[
+                       The selected Category product addition will be observed and assigned automatically to this profile on selection.]]>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        &lt;!&ndash;TODO: impliment query-builder @ver 0.0.5&ndash;&gt;
+        &lt;!&ndash;<field name="query_builder_enable">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Magento\Config\Model\Config\Source\Enabledisable</item>
+                <item name="config" xsi:type="array">
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="elementTmpl" xsi:type="string">ui/form/element/switcher</item>
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="source" xsi:type="string">onbuy_profile_form_data_source</item>
+                    <item name="label" xsi:type="string" translate="true">Enable Query Builder</item>
+                    <item name="component" xsi:type="string">Ced_Onbuy/js/profile/query-builder-enable</item>
+                    &lt;!&ndash;TODO: default value fix&ndash;&gt;
+                    <item name="default" xsi:type="boolean">false</item>
+                </item>
+            </argument>
+        </field>&ndash;&gt;
+        &lt;!&ndash;TODO: enable/disable query builder on init&ndash;&gt;
+        &lt;!&ndash;<container name="profile_products_container_query_builder">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">160</item>
+                </item>
+            </argument>
+            <htmlContent name="html_content">
+                <argument name="block" xsi:type="object">Ced\Onbuy\Block\Adminhtml\Profile\Ui\Form\Product</argument>
+            </htmlContent>
+        </container>&ndash;&gt;
+        <container name="profile_products_container_grid">
+            &lt;!&ndash;TODO: Fix filter reset, add selections.&ndash;&gt;
+            <insertListing>
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="autoRender" xsi:type="boolean">true</item>
+                        <item name="behaviourType" xsi:type="string">simple</item>
+                        <item name="component" xsi:type="string">Ced_Onbuy/js/profile/insert-listing</item>
+                        <item name="ns" xsi:type="string">onbuy_profile_products</item>
+                    </item>
+                </argument>
+            </insertListing>
+        </container>
+    </fieldset>-->
+</form>

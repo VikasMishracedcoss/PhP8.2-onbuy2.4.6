@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="adminhtml_block_html_before">
+        <observer name="ced_integrator_dynamic_menu" instance="Ced\Integrator\Observer\Menu\AdminhtmlBlockHtmlBefore" />
+    </event>
+    <event name="ced_profile_save_before">
+        <observer name="query_builder_save_before" instance="Ced\Integrator\Observer\ConditionRule\SaveBefore" />
+    </event>
+    <event name="ced_profile_save_after">
+        <observer name="query_builder_save_after" instance="Ced\Integrator\Observer\ConditionRule\SaveAfter" />
+    </event>
+    <event name="ced_profile_load_after">
+        <observer name="query_builder_load_after" instance="Ced\Integrator\Observer\ConditionRule\LoadAfter" />
+    </event>
+</config>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+   <columns name="integrator_dashboard_back">
+      <actionsColumn>
+         <argument name="data" xsi:type="array">
+            <item name="buttons" xsi:type="array">
+                <item name="Back" xsi:type="array">
+                    <item name="name" xsi:type="string">Back To MultiChannel Dashboard</item>
+                    <item name="label" xsi:type="string">Back</item>
+                    <item name="class" xsi:type="string">primary</item>
+                    <item name="url" xsi:type="string">*/*/MasterDash</item>
+                </item>
+            </item>
+         </argument>
+      </actionsColumn>
+   </columns>
+</listing>

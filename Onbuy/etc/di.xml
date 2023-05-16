@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<!--
+/**
+  * CedCommerce
+  *
+  * NOTICE OF LICENSE
+  *
+  * This source file is subject to the End User License Agreement (EULA)
+  * that is bundled with this package in the file LICENSE.txt.
+  * It is also available through the world-wide-web at this URL:
+  * http://cedcommerce.com/license-agreement.txt
+  *
+  * @category    Ced
+  * @package     Ced_EbayMultiAccount
+  * @author      CedCommerce Core Team <connect@cedcommerce.com>
+  * @copyright   Copyright CEDCOMMERCE (http://cedcommerce.com/)
+  * @license     http://cedcommerce.com/license-agreement.txt
+  */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <virtualType name="ProfileDataGridFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\FilterPool">
+        <arguments>
+            <argument name="appliers" xsi:type="array">
+                <item name="regular" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\RegularFilter</item>
+                <item name="fulltext" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\FulltextFilter</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="Ced\Onbuy\Ui\DataProvider\Product\Modifier\Pool"
+                 type="Magento\Ui\DataProvider\Modifier\Pool">
+        <arguments>
+            <argument name="modifiers" xsi:type="array">
+                <item name="product-modifier" xsi:type="array">
+                    <item name="class" xsi:type="string">
+                        Ced\Onbuy\Ui\DataProvider\Product\Modifier\ProductModifier
+                    </item>
+                    <item name="sortOrder" xsi:type="number">20</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Ced\Onbuy\Ui\DataProvider\Product\OnbuyProduct">
+        <arguments>
+            <argument name="pool" xsi:type="object">Ced\Onbuy\Ui\DataProvider\Product\Modifier\Pool</argument>
+            <!--<argument name="addFilterStrategies" xsi:type="array">
+                <item name="ebaymultiaccount_feed_product" xsi:type="object">Ced\EbayMultiAccount\Ui\DataProvider\Product\AddProductStatusCollection</item>
+            </argument>-->
+            <argument name="collectionFactory" xsi:type="object">
+                Magento\Catalog\Model\ResourceModel\Product\CollectionFactory
+            </argument>
+        </arguments>
+    </type>
+    <!--<type name="Magento\SalesRule\Model\RulesApplier">-->
+        <!--<plugin name="remove_discount_on_order" type="Ced\Onbuy\Plugin\RulesApplier" sortOrder="1" disabled="false"/>-->
+    <!--</type>-->
+  
+</config>

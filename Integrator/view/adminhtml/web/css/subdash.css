@@ -1,0 +1,62 @@
+.blocks {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 80%;
+    border-radius: 5px;
+    text-align: center;
+    padding: 20px;
+    padding-bottom: 20px;
+  }
+
+.card{
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 110%;
+    border-radius: 5px;
+    padding: 10px; 
+    height: 570px;
+  }
+
+  .cards{
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 100%;
+    border-radius: 5px;
+    text-align: center;
+    padding-top: 20px;
+    padding-left: 20px;
+    height: 570px; 
+  }
+  select {
+    height: 50px;
+    font-size: 100%;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 0;
+    background-color: white;
+    border: none;
+    border-bottom-color:solid 2px #DCDCDC;
+    color: #c0392b;
+    padding: 10px;
+    padding-right: 38px;
+    transition: color 0.3s ease, background-color 0.3s ease, border-bottom-color 0.3s ease;
+  }
+.table{
+    margin-top: 50px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 100%;
+    border-radius: 5px;
+    text-align: center;
+    padding-top: 20px;
+    padding-left: 20px;
+}
+.saleschart {
+  height: 500px !important;
+  width: 600px !important;
+}
+
+.saleschart1 {
+  height: 500px !important;
+  width: 450px !important;
+}

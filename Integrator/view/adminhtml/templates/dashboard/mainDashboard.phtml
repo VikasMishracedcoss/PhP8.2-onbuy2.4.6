@@ -1,0 +1,257 @@
+<?php
+$blocksData = $block->getChildBlock('data')->blocksData();
+$last7Days = $block->getChildBlock('data')->last7days();
+$last24months = $block->getChildBlock('data')->last24months();
+$last12months = $block->getChildBlock('data')->last12months();
+$currentMonth = $block->getChildBlock('data')->currentMonth();
+
+?>
+<?php
+$date = implode(',', $last7Days['date']);
+$sales = '[' . implode(',', $last7Days['sales']) . ']';
+$return = '[' . implode(',', $last7Days['return']) . ']';
+?>
+<input id="datescollection" value='<?= /* @noEscape */ $date ?>' type="hidden">
+<input id="salescollection" value="<?= /* @noEscape */ $sales ?>" type="hidden">
+<input id="returncollection" value="<?= /* @noEscape */ $return ?>" type="hidden">
+<script type="text/x-magento-init">
+  {
+    "*": {
+        "Ced_Integrator/js/graph": {}
+    }
+}
+</script>
+<script type="text/javascript">
+  function perioddata() {
+    var selectedvalue = document.getElementById("dropdownPeriod").value;
+    if (selectedvalue == 'last7days') {
+      <?php
+        $date = implode(',', $last7Days['date']);
+        $sales = '[' . implode(',', $last7Days['sales']) . ']';
+        $return = '[' . implode(',', $last7Days['return']) . ']';
+        ?>
+      document.getElementById("datescollection").value = "<?= /* @noEscape */ $date ?>"
+      document.getElementById("salescollection").value = "<?= /* @noEscape */ $sales ?>"
+      document.getElementById("returncollection").value = "<?= /* @noEscape */ $return ?>"
+    } else if (selectedvalue == 'last24months') {
+      <?php
+        $datevalue = implode(',', $last24months['date']);
+        $sales = '[' . implode(',', $last24months['sales']) . ']';
+        $return = '[' . implode(',', $last24months['return']) . ']';
+        ?>
+      document.getElementById("datescollection").value = "<?= /* @noEscape */ $datevalue ?>"
+      document.getElementById("salescollection").value = "<?= /* @noEscape */ $sales ?>"
+      document.getElementById("returncollection").value = "<?= /* @noEscape */ $return ?>"
+    } else if (selectedvalue == 'last12months') {
+      <?php
+        $datevalue = implode(',', $last12months['date']);
+        $sales = '[' . implode(',', $last12months['sales']) . ']';
+        $return = '[' . implode(',', $last12months['return']) . ']';
+        ?>
+      document.getElementById("datescollection").value = "<?= /* @noEscape */ $datevalue ?>"
+      document.getElementById("salescollection").value = "<?= /* @noEscape */ $sales ?>"
+      document.getElementById("returncollection").value = "<?= /* @noEscape */ $return ?>"
+    } else if (selectedvalue == 'currentmonth') {
+      <?php
+        $datevalue = implode(',', $currentMonth['date']);
+        $sales = '[' . implode(',', $currentMonth['sales']) . ']';
+        $return = '[' . implode(',', $currentMonth['return']) . ']';
+        ?>
+      document.getElementById("datescollection").value = "<?= /* @noEscape */ $datevalue ?>"
+      document.getElementById("salescollection").value = "<?= /* @noEscape */ $sales ?>"
+      document.getElementById("returncollection").value = "<?= /* @noEscape */ $return ?>"
+    }
+  }
+</script>
+<?php
+$modulesList = $block->modulesList();
+$disableModuleList = $block->disableModuleList();
+$enableModuleList = $block->enableModuleList();
+?>
+
+<script>
+  <?php foreach ($modulesList as $values) {
+        ?>
+
+    function <?=/* @noEscape */ $values ?>() {
+      document.getElementById('<?=/* @noEscape */ $values ?>').submit();
+
+    }
+        <?php
+  }
+    ?>
+</script>
+
+<div class="container">
+  <div class="row">
+    <div class="col-m-4">
+      <div class="blocks">
+        <h1 style="font-weight: 900;">Lifetime Sales</h1>
+        <h1 style="color: #FF6625; font-weight:700;">
+          <?=/* @noEscape */ $block->getCurrentCurrencySymbol(); ?>
+          <?=/* @noEscape */ number_format($blocksData['sales']); ?>
+        </h1>
+      </div>
+    </div>
+    <div class="col-m-4">
+      <div class="blocks">
+        <h1 style="font-weight: 900;">Lifetime Returns</h1>
+        <h1 style="color: #FF6625; font-weight:700;">
+          <?=/* @noEscape */ $block->getCurrentCurrencySymbol(); ?>
+          <?=/* @noEscape */ number_format($blocksData['return']); ?></h1>
+      </div>
+    </div>
+    <div class="col-m-4">
+      <div class="blocks">
+        <h1 style="font-weight: 900;">Order Shipped</h1>
+        <h1 style="color: #FF6625; font-weight:700;">
+          <?=/* @noEscape */ $blocksData['quantity']; ?></h1>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="containerlvl">
+  <div class="row">
+    <div class="col-m-8">
+      <div class="cards">
+        <h1 style="font-weight: 900; text-align:center;">REVENUE CHART</h1>
+
+        <select id="dropdownPeriod" onchange="perioddata();">
+          <option value="last7days" selected>Last 7 Days</option>
+          <option value="currentmonth">Current Month</option>
+          <option value="last12months">YTD</option>
+          <option value="last24months">2YTD</option>
+
+
+        </select>
+        <canvas id="graph" data-mage-init='{"graph": {}}' width="undefined" height="185"></canvas>
+      </div>
+    </div>
+    <div class="col-m-1"></div>
+    <div class="col-m-3">
+      <div class="cards">
+        <table id="module">
+          <tr>
+            <th>MARKETPLACES</th>
+            <th>STATUS</th>
+          </tr>
+          <?php foreach ($enableModuleList as $values) {
+                ?>
+            <tr>
+              <td>
+                <?=/* @noEscape */ $values ?>
+              </td>
+              <td>
+                <span class="badgeenable">Enable</span>
+              </td>
+            </tr>
+                <?php
+          }
+            ?>
+          <?php foreach ($disableModuleList as $values) {
+                ?>
+            <tr>
+              <td>
+                <?=/* @noEscape */ $values ?>
+              </td>
+              <td>
+                <span class="badgedisable">Disable</span>
+              </td>
+            </tr>
+                <?php
+          }
+            ?>
+
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+<div id="dashboard" style="margin-left:20px">
+  <div class="row">
+    <?php
+    foreach ($modulesList as $cards) {
+        $name = strtolower($cards);
+        ?>
+      <div class="col-m-4">
+        <div class="card">
+          <img src=" <?=/* @noEscape */
+            $block->getViewFileUrl('Ced_Integrator/images/' . $name . '.png'); ?>"
+          style="width: 100px; height:100px;" class="card-img-top" alt="...">
+          <div class="containers">
+            <h5 class="card-title"><?= /* @noEscape */ $cards ?></h5>
+          </div>
+          <?php $accountdetail = $block->getModuleDetail($cards);
+            ?>
+          <div class="alert" role="alert">
+            <h4>Total Order Placed: <?=/* @noEscape */ $accountdetail['totalOrder'];  ?></h4>
+          </div>
+          <div class="alert" role="alert">
+            <h4>
+              Total Sales: <?=/* @noEscape */ $block->getCurrentCurrencySymbol() .
+                              number_format($accountdetail['totalSale']);  ?></h4>
+          </div>
+
+          <div class="alert" role="alert">
+            <h4>
+              Total Accounts: <?=/* @noEscape */ $accountdetail['totalAccount'];  ?>
+            </h4>
+          </div>
+
+
+          <div class="card-body">
+
+            <form name="addData" method="GET"
+            id="<?=/* @noEscape */ $cards ?>" class="form"
+            action=" <?=/* @noEscape */ $block->getUrl("integrator/dashboard/index"); ?>">
+
+              <select name="selectedmodule" class="dashboardselect" onchange="<?=/* @noEscape */ $cards ?>();">
+                <?php if ($cards == 'Walmart') { ?>
+                  <option value="" selected="selected" disabled>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;Go For DashBoard
+                  </option>
+                <?php } else {
+                    ?>
+                  <option value="" selected="selected" disabled>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;Select an Account
+                  </option>
+
+                    <?php
+                }
+                $accountList = $block->accountList($cards);
+                foreach ($accountList as $account) {
+                    if ($cards == 'Walmart') {
+                        ?>
+                    <option value="<?=/* @noEscape */ $cards . '.' . $account['id'] . '.' . $account['code']; ?>">
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      &nbsp;&nbsp;&nbsp;<?=/* @noEscape */ $account['code']; ?></option>
+                  <?php } else {
+                        ?>
+                    <option value="<?=/* @noEscape */ $cards . '.' . $account['id'] . '.' . $account['code']; ?>">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Account:
+                        <?=/* @noEscape */ $account['code']; ?> [id:<?=/* @noEscape */ $account['id']; ?>]</option>
+                        <?php
+                  }
+                }
+                ?>
+              </select>
+              <input name="form_key" type="hidden" value="<?=/* @noEscape */ $block->getFormKey(); ?>" />
+            </form>
+          </div>
+        </div>
+      </div>
+        <?php
+    }
+    ?>
+  </div>
+</div>

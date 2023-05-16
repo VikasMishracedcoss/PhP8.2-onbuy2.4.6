@@ -1,0 +1,229 @@
+<?php
+$prepare24MonthlyData = $block->getChildBlock('data')->prepare24MonthlyData();
+$prepare12MonthlyData = $block->getChildBlock('data')->prepare12MonthlyData();
+$preparelast7days = $block->getChildBlock('data')->preparelast7days();
+$prepareCurrentMonthlyData = $block->getChildBlock('data')->prepareCurrentMonthlyData();
+$productstatus = $block->productstatus();
+$totalSale = $block->lifeTimeSale();
+$averageSale = $block->averageSale();
+$totalQuantity = $block->totalQuantity();
+
+$statudata = array_slice($productstatus, 3, 6);
+$validdata = array_slice($productstatus, 0, 3);
+$productstatus = implode(',', $statudata);
+$productvalidate = implode(',', $validdata);
+
+$date = implode(',', $preparelast7days['date']);
+$sales = '[' . implode(',', $preparelast7days['sales']) . ']';
+$return = '[' . implode(',', $preparelast7days['return']) . ']';
+$average = '[' . implode(',', $preparelast7days['average']) . ']';
+?>
+<input id="productvalidate" value='<?= /* @noEscape */ $productvalidate ?>' type="hidden">
+<input id="productstatus" value='<?= /* @noEscape */ $productstatus ?>' type="hidden">
+<input id="saleschartDate" value='<?= /* @noEscape */ $date ?>' type="hidden">
+<input id="saleschartSale" value="<?= /* @noEscape */ $sales ?>" type="hidden">
+<input id="saleschartReturn" value="<?= /* @noEscape */ $return ?>" type="hidden">
+<input id="saleschartAverage" value="<?= /* @noEscape */ $average ?>" type="hidden">
+<script type="text/x-magento-init">
+  {
+    "*": {
+        "Ced_Integrator/js/saleschart": {}
+    }
+}
+</script>
+<script type="text/javascript">
+  function getperioddata() {
+    let selectedvalue = document.getElementById("thedropdown").value;
+    if (selectedvalue == 'currentMonth') {
+      <?php
+        $date = implode(',', $prepareCurrentMonthlyData['date']);
+        $sales = '[' . implode(',', $prepareCurrentMonthlyData['sales']) . ']';
+        $return = '[' . implode(',', $prepareCurrentMonthlyData['return']) . ']';
+        $average = '[' . implode(',', $prepareCurrentMonthlyData['average']) . ']'; ?>
+      document.getElementById("saleschartDate").value = "<?= /* @noEscape */ $date ?>"
+      document.getElementById("saleschartSale").value = "<?= /* @noEscape */ $sales ?>"
+      document.getElementById("saleschartReturn").value = "<?= /* @noEscape */$return ?>"
+      document.getElementById("saleschartAverage").value = "<?= /* @noEscape */ $average ?>"
+    } else if (selectedvalue == '24months') {
+      <?php
+        $date = implode(',', $prepare24MonthlyData['date']);
+        $sales = '[' . implode(',', $prepare24MonthlyData['sales']) . ']';
+        $return = '[' . implode(',', $prepare24MonthlyData['return']) . ']';
+        $average = '[' . implode(',', $prepare24MonthlyData['average']) . ']'; ?>
+      document.getElementById("saleschartDate").value = "<?= /* @noEscape */ $date ?>"
+      document.getElementById("saleschartSale").value = "<?= /* @noEscape */ $sales ?>"
+      document.getElementById("saleschartReturn").value = "<?= /* @noEscape */ $return ?>"
+      document.getElementById("saleschartAverage").value = "<?= /* @noEscape */ $average ?>"
+
+    } else if (selectedvalue == 'last7days') {
+      <?php
+        $date = implode(',', $preparelast7days['date']);
+        $sales = '[' . implode(',', $preparelast7days['sales']) . ']';
+        $return = '[' . implode(',', $preparelast7days['return']) . ']';
+        $average = '[' . implode(',', $preparelast7days['average']) . ']'; ?>
+      document.getElementById("saleschartDate").value = "<?= /* @noEscape */ $date ?>"
+      document.getElementById("saleschartSale").value = "<?= /* @noEscape */ $sales ?>"
+      document.getElementById("saleschartReturn").value = "<?= /* @noEscape */ $return ?>"
+      document.getElementById("saleschartAverage").value = "<?= /* @noEscape */ $average ?>"
+    } else if (selectedvalue == '12months') {
+      <?php
+        $date = implode(',', $prepare12MonthlyData['date']);
+        $sales = '[' . implode(',', $prepare12MonthlyData['sales']) . ']';
+        $return = '[' . implode(',', $prepare12MonthlyData['return']) . ']';
+        $average = '[' . implode(',', $prepare12MonthlyData['average']) . ']'; ?>
+      document.getElementById("saleschartDate").value = "<?= /* @noEscape */ $date ?>"
+      document.getElementById("saleschartSale").value = "<?= /* @noEscape */ $sales ?>"
+      document.getElementById("saleschartReturn").value = "<?= /* @noEscape */ $return ?>"
+      document.getElementById("saleschartAverage").value = "<?= /* @noEscape */ $average ?>"
+    }
+  }
+</script>
+<script type="text/javascript">
+  /** LibrarY Used For Tabs */
+  require(["jquery", "mage/backend/tabs"], function($) {
+    $(function() {
+      $('#tab_element').tabs({
+        active: 'tab1_content',
+        destination: '#tab_element_content',
+        shadowTabs: []
+      });
+      $('#grid_element').tabs({
+        active: 'grid1_content',
+        destination: '#grid_element_content',
+        shadowTabs: []
+      });
+    });
+  });
+</script>
+
+<div class="container">
+  <div class="row">
+    <div class="col-m-4" style="text-align: center;">
+      <div class="blocks">
+        <h1 style="font-weight: 900;">Lifetime Sale</h1>
+        <h2 style="color: #FF6625; font-weight:700;">
+          <?=/* @noEscape */ $block->getCurrentCurrencySymbol(); ?><?=/* @noEscape */ number_format($totalSale); ?>
+        </h2>
+      </div>
+    </div>
+    <div class="col-m-4" style="text-align: center;">
+      <div class="blocks">
+        <h1 style="font-weight: 900;">Average Sale</h1>
+        <h2><?=/* @noEscape */ $block->getCurrentCurrencySymbol(); ?>
+          <?=/* @noEscape */ number_format($averageSale); ?></h2>
+      </div>
+    </div>
+    <div class="col-m-4" style="text-align: center;">
+      <div class="blocks">
+        <h1 style="font-weight: 900;">Order Shipped</h1>
+        <h2><?=/* @noEscape */ $totalQuantity; ?></h2>
+      </div>
+    </div>
+  </div>
+  <div class="row" style="margin-top:30px;">
+    <div class="col-m-6">
+      <div class="card">
+        <h1 style="font-weight: 900; text-align:center;">SALES CHART</h1>
+
+        <select id="thedropdown" onchange="getperioddata();">
+          <option value='last7days' selected>Last 7 Days</option>
+          <option value="currentMonth">Current Month</option>
+          <option value="12months">YTD</option>
+          <option value="24months">2YTD</option>
+        </select>
+        <canvas id="saleschart" data-mage-init='{"saleschart": {}}' width="600" height="400"></canvas>
+      </div>
+    </div>
+    <div class="col-m-1"></div>
+    <div class="col-m-5">
+      <div class="cards">
+        <div id="tab_element">
+          <ul class="tabs-horiz">
+            <li>
+              <a href="#tab1_content"> <span>Product Status</span> </a>
+            </li>
+            <li>
+              <a href="#tab2_content"> <span>Product Validation</span> </a>
+            </li>
+          </ul>
+        </div>
+
+        <div id="tab_element_content">
+          <div id="tab1_content">
+            <div class="saleschart1" style="margin-top: 60px;">
+
+              <canvas id="piechart" data-mage-init='{"saleschart": {}}' width="600" height="400"></canvas>
+            </div>
+          </div>
+          <div id="tab2_content">
+            <div class="saleschart1" style="margin-top: 60px;">
+              <canvas id="piechartvalidate" data-mage-init='{"saleschart": {}}' width="600" height="400"></canvas>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<div class="table">
+  <div class="row">
+    <div class="col-m-12">
+      <div id="grid_element">
+        <ul class="tabs-horiz">
+          <li>
+            <a href="#grid1_content"> <span>
+                Shipped Orders
+              </span> </a>
+          </li>
+          <li>
+            <a href="#grid2_content"> <span>
+                Pending Orders
+              </span> </a>
+          </li>
+          <li>
+            <a href="#grid3_content"> <span>
+                Orders Return
+              </span> </a>
+          </li>
+          <li>
+            <a href="#grid4_content"> <span>
+                BestSelling Products
+              </span> </a>
+          </li>
+        </ul>
+      </div>
+      <div id="grid_element_content">
+        <div id="grid1_content">
+          <div>
+            <div>
+              <?= /* @noEscape */ $block->getChildHtml('lastOrders'); ?>
+
+            </div>
+          </div>
+        </div>
+        <div id="grid2_content">
+          <div>
+            <div>
+              <?=/* @noEscape */ $block->getChildHtml('pendingOrder'); ?>
+            </div>
+          </div>
+        </div>
+        <div id="grid3_content">
+          <div>
+            <div>
+              <?=/* @noEscape */ $block->getChildHtml('return'); ?>
+            </div>
+          </div>
+        </div>
+        <div id="grid4_content">
+          <div>
+            <div>
+              <?= /* @noEscape */ $block->getChildHtml('mostSold'); ?>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
